@@ -1,3 +1,5 @@
+import {hot} from 'react-hot-loader/root';
+
 import React from 'react';
 import './App.css';
 
@@ -8,4 +10,4 @@ const App: React.FunctionComponent<Props> = () => {
 };
 App.displayName = 'App';
 
-export default App;
+export default hot(App);

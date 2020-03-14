@@ -4,9 +4,11 @@
     "allowSyntheticDefaultImports": true,
     "jsx": "react",
     "outDir": "dist",
+    "module": "none",
+    "moduleResolution": "node",
     "noImplicitAny": true,
     "sourceMap": true,
-    "strictNullChecks": true,
-    "target": "ES2017"
+    "strict": true,
+    "target": "esnext"
   }
 }

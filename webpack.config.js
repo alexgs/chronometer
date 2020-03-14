@@ -1,19 +1,21 @@
-const path = require('path');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 
 module.exports = {
   devServer: {
     contentBase: './dist',
+    hot: true,
     port: 3000,
   },
   devtool: 'source-map',
-  entry: './src/index.tsx',
+  entry: ['react-hot-loader/patch', './src/index.tsx'],
   mode: 'development',
   module: {
     rules: [
       {
         test: /\.tsx?$/,
-        use: 'ts-loader',
+        use: 'babel-loader',
         exclude: /node_modules/,
       },
       {
@@ -27,14 +29,19 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.join(__dirname, 'dist'),
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: './public/index.html'
     }),
   ],
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+    extensions: [ '.tsx', '.ts', '.js', '.json' ],
+    modules: ['node_modules'],
   },
 };
