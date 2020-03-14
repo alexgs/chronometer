@@ -1,8 +1,9 @@
+import React from 'react';
 import {hot} from 'react-hot-loader/root';
 
-import React from 'react';
 import './App.css';
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 interface Props {}
 
 const App: React.FunctionComponent<Props> = () => {

@@ -27,7 +27,8 @@
     "url": "https://github.com/alexgs/chronometer.git"
   },
   "scripts": {
-    "dev": "webpack-dev-server --color"
+    "dev": "webpack-dev-server --color",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
     "react": "^16.13.0",
@@ -41,8 +42,14 @@
     "@hot-loader/react-dom": "^16.13.0",
     "@types/react": "^16.9.23",
     "@types/react-dom": "^16.9.5",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
     "babel-loader": "^8.0.6",
     "css-loader": "^3.4.2",
+    "eslint": "^6.8.0",
+    "eslint-plugin-import": "^2.20.1",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.0",
     "fork-ts-checker-webpack-plugin": "^4.1.0",
     "html-webpack-plugin": "^3.2.0",
     "react-hot-loader": "^4.12.20",
