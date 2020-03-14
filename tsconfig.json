@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "outDir": "dist",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "target": "ES2017"
+  }
+}

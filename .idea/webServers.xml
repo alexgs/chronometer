@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="e88a24c2-8ace-41f8-b8b3-211f2bcb6c79" name="Ubuntu [WSL]" url="http://localhost:3000">
+        <fileTransfer port="0" mountedRoot="U:\home\alexgs\projects\chronometer" accessType="MOUNT" />
+      </webServer>
+    </option>
+  </component>
+</project>
