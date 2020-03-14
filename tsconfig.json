@@ -5,6 +5,7 @@
     "jsx": "react",
     "outDir": "dist",
     "noImplicitAny": true,
+    "sourceMap": true,
     "strictNullChecks": true,
     "target": "ES2017"
   }
