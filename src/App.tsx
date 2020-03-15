@@ -1,13 +1,11 @@
 import React from 'react';
 import { hot } from 'react-hot-loader/root';
 
+import { Home } from './Home';
 import './App.css';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Props {}
-
-const App: React.FunctionComponent<Props> = () => {
-  return <div>Hello Chronometer!</div>;
+const App: React.FunctionComponent = () => {
+  return <Home />;
 };
 App.displayName = 'App';
 

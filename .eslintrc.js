@@ -5,7 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  plugins: ['@typescript-eslint', 'import', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'emotion', 'import', 'react', 'react-hooks'],
   settings: {
     react: {
       version: 'detect',
@@ -19,6 +19,9 @@ module.exports = {
     'plugin:react/recommended',
   ],
   rules: {
+    'emotion/no-vanilla': 'error',
+    'emotion/styled-import': 'error',
+    'emotion/syntax-preference': ['error', 'object'],
     'import/order': [
       'error',
       {
