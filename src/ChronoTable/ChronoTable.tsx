@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { Row } from './Row';
+
 export const ChronoTable: React.FunctionComponent = () => {
   return (
     <table>
@@ -26,168 +28,9 @@ export const ChronoTable: React.FunctionComponent = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Working</td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-        </tr>
-        <tr>
-          <td>Gym</td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-        </tr>
-        <tr>
-          <td>Sleeping</td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-          <td>
-            <input type={'radio'} />
-          </td>
-        </tr>
+        <Row activity={'Working'} />
+        <Row activity={'Gym'} />
+        <Row activity={'Sleeping'} />
       </tbody>
     </table>
   );
