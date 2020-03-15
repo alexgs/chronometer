@@ -5,12 +5,7 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  plugins: [
-    '@typescript-eslint',
-    'import',
-    'react',
-    'react-hooks',
-  ],
+  plugins: ['@typescript-eslint', 'import', 'react', 'react-hooks'],
   settings: {
     react: {
       version: 'detect',
@@ -30,7 +25,12 @@ module.exports = {
         alphabetize: {
           order: 'asc',
         },
-        groups: [["builtin", "external"], 'internal', "parent", ["index", "sibling"]],
+        groups: [
+          ['builtin', 'external'],
+          'internal',
+          'parent',
+          ['index', 'sibling'],
+        ],
         'newlines-between': 'always',
       },
     ],

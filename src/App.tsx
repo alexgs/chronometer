@@ -1,5 +1,5 @@
 import React from 'react';
-import {hot} from 'react-hot-loader/root';
+import { hot } from 'react-hot-loader/root';
 
 import './App.css';
 
@@ -7,7 +7,7 @@ import './App.css';
 interface Props {}
 
 const App: React.FunctionComponent<Props> = () => {
-  return (<div>Hello Chronometer!</div>);
+  return <div>Hello Chronometer!</div>;
 };
 App.displayName = 'App';
 

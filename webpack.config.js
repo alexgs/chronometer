@@ -21,11 +21,8 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test:/\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ],
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },
@@ -36,14 +33,14 @@ module.exports = {
   plugins: [
     new ForkTsCheckerWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: './public/index.html'
+      template: './public/index.html',
     }),
   ],
   resolve: {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
-    extensions: [ '.tsx', '.ts', '.js', '.json' ],
+    extensions: ['.tsx', '.ts', '.js', '.json'],
     modules: ['node_modules'],
   },
 };
