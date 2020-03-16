@@ -13,8 +13,13 @@ export const Cell: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <td>
-      <input checked={props.isChecked} name={props.id} onChange={handleClick} type={'checkbox'} />
+      <input
+        checked={props.isChecked}
+        name={props.id}
+        onChange={handleClick}
+        type={'checkbox'}
+      />
     </td>
-  )
+  );
 };
 Cell.displayName = 'ChronoTable.Cell';

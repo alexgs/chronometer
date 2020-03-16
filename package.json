@@ -23,9 +23,9 @@
   "homepage": "https://github.com/alexgs/chronometer",
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run prettier",
-      "pre-merge-commit": "npm run lint && npm run prettier",
-      "pre-push": "npm run lint && npm run prettier"
+      "pre-commit": "npm run lint",
+      "pre-merge-commit": "npm run lint",
+      "pre-push": "npm run lint"
     }
   },
   "license": "BSD-3-Clause",
@@ -35,10 +35,13 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --color",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "lint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
+    "eslint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "eslint:fix": "eslint --fix . --ext .js,.jsx,.ts,.tsx",
+    "lint": "npm run type && npm run eslint && npm run prettier",
+    "lint:fix": "npm run type && npm run eslint:fix && npm run prettier:fix",
     "prettier": "prettier --check \"**/*.{js,ts,tsx}\"",
-    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx}\""
+    "prettier:fix": "prettier --write \"**/*.{js,ts,tsx}\"",
+    "type": "tsc --noEmit"
   },
   "dependencies": {
     "react": "^16.13.0",

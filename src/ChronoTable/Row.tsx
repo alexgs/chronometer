@@ -3,32 +3,34 @@ import * as React from 'react';
 import { Cell } from './Cell';
 
 export interface Props {
-  activity: string;
+  activityId: string;
+  activityName: string;
+  onToggle: (activityId: string, time: string) => void;
+  selectedTimes: string[];
 }
 
-export const Row: React.FunctionComponent<Props> = (props: Props) => {
-  const [mark, setMark] = React.useState({
-    '1200': false,
-    '1215': false,
-    '1230': false,
-    '1245': false,
-  });
+const times = ['1200', '1215', '1230', '1245'];
 
-  function handleClick(id: string): void {
-    const name: keyof typeof mark = id as keyof typeof mark;
-    setMark({
-      ...mark,
-      [name]: !mark[name],
-    });
+export const Row: React.FunctionComponent<Props> = (props: Props) => {
+  function handleClick(time: string): void {
+    props.onToggle(props.activityId, time);
   }
+
+  const cells = times.map((time: string) => {
+    return (
+      <Cell
+        key={time}
+        id={time}
+        isChecked={props.selectedTimes.includes(time)}
+        onClick={handleClick}
+      />
+    );
+  });
 
   return (
     <tr>
-      <td>{props.activity}</td>
-      <Cell id={'1200'} isChecked={mark['1200']} onClick={handleClick}/>
-      <Cell id={'1215'} isChecked={mark['1215']} onClick={handleClick}/>
-      <Cell id={'1230'} isChecked={mark['1230']} onClick={handleClick}/>
-      <Cell id={'1245'} isChecked={mark['1245']} onClick={handleClick}/>
+      <td>{props.activityName}</td>
+      {cells}
     </tr>
   );
 };
