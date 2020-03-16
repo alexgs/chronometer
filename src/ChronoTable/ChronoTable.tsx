@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { getEmptyDay } from '../constants';
+
 import { Header } from './Header';
 import { Row } from './Row';
 
@@ -9,9 +11,7 @@ interface Activity {
   position: number;
 }
 
-interface ActivityHistory {
-  [time: string]: string[];
-}
+type ActivityHistory = string[][];
 
 interface Activities {
   [id: string]: Activity;
@@ -37,37 +37,37 @@ const activities: Activities = {
 };
 /* eslint-enable @typescript-eslint/camelcase */
 
-const initialHistory: ActivityHistory = {
-  '1200': ['activity_0'],
-  '1215': [],
-  '1230': ['activity_2'],
-  '1245': ['activity_0'],
-};
+const initialHistory: ActivityHistory = getEmptyDay();
 
 function getSelectedTimes(
   activityId: string,
   history: ActivityHistory,
 ): string[] {
-  return Object.keys(history).filter((time: string) =>
-    history[time].includes(activityId),
-  );
+  const output: string[] = [];
+  history.forEach((hour: string[], hourIndex: number) => {
+    hour.forEach((interval: string, intervalIndex: number) => {
+      if (interval === activityId) {
+        output.push(hourIndex + '.' + intervalIndex);
+      }
+    });
+  });
+  return output;
 }
 
 export const ChronoTable: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
   function handleToggle(activityId: string, time: string): void {
-    let newState: string[] | null = null;
-    if (history[time].includes(activityId)) {
-      newState = history[time].filter((id: string) => id !== activityId);
+    const [hour, segment] = time.split('.').map(s => parseInt(s, 10));
+    const newState = [...history];
+    newState[hour] = [...history[hour]];
+    if (history[hour][segment] === activityId) {
+      newState[hour][segment] = '';
     } else {
-      newState = [...history[time], activityId];
+      newState[hour][segment] = activityId;
     }
 
-    setHistory({
-      ...history,
-      [time]: newState,
-    });
+    setHistory(newState);
   }
 
   const rows = Object.values(activities).map((activity: Activity) => {

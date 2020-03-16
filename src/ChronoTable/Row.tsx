@@ -1,5 +1,7 @@
 import * as React from 'react';
 
+import { HOURS } from '../constants';
+
 import { Cell } from './Cell';
 
 export interface Props {
@@ -9,22 +11,25 @@ export interface Props {
   selectedTimes: string[];
 }
 
-const times = ['1200', '1215', '1230', '1245'];
-
 export const Row: React.FunctionComponent<Props> = (props: Props) => {
   function handleClick(time: string): void {
     props.onToggle(props.activityId, time);
   }
 
-  const cells = times.map((time: string) => {
-    return (
-      <Cell
-        key={time}
-        id={time}
-        isChecked={props.selectedTimes.includes(time)}
-        onClick={handleClick}
-      />
-    );
+  const cells = HOURS.map((intervals: string[], hourIndex: number) => {
+    return intervals
+      .map((_, intervalIndex: number) => {
+        const time: string = hourIndex + '.' + intervalIndex;
+        return (
+          <Cell
+            key={time}
+            id={time}
+            isChecked={props.selectedTimes.includes(time)}
+            onClick={handleClick}
+          />
+        );
+      })
+      .flat();
   });
 
   return (
