@@ -1,5 +1,6 @@
 import * as React from 'react';
 
+import { Cell } from './Cell';
 
 export interface Props {
   activity: string;
@@ -13,8 +14,8 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
     '1245': false,
   });
 
-  function handleClick(event: React.SyntheticEvent<HTMLInputElement>): void {
-    const name: keyof typeof mark = event.currentTarget.name as keyof typeof mark;
+  function handleClick(id: string): void {
+    const name: keyof typeof mark = id as keyof typeof mark;
     setMark({
       ...mark,
       [name]: !mark[name],
@@ -24,18 +25,10 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <tr>
       <td>{props.activity}</td>
-      <td>
-        <input checked={mark['1200']} name={'1200'} onChange={handleClick} type={'checkbox'} />
-      </td>
-      <td>
-        <input checked={mark['1215']} name={'1215'} onChange={handleClick} type={'checkbox'} />
-      </td>
-      <td>
-        <input checked={mark['1230']} name={'1230'} onChange={handleClick} type={'checkbox'} />
-      </td>
-      <td>
-        <input checked={mark['1245']} name={'1245'} onChange={handleClick} type={'checkbox'} />
-      </td>
+      <Cell id={'1200'} isChecked={mark['1200']} onClick={handleClick}/>
+      <Cell id={'1215'} isChecked={mark['1215']} onClick={handleClick}/>
+      <Cell id={'1230'} isChecked={mark['1230']} onClick={handleClick}/>
+      <Cell id={'1245'} isChecked={mark['1245']} onClick={handleClick}/>
     </tr>
   );
 };
