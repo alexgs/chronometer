@@ -19,6 +19,7 @@ module.exports = {
     'plugin:react/recommended',
   ],
   rules: {
+    '@typescript-eslint/no-use-before-define': 'off',
     'emotion/no-vanilla': 'error',
     'emotion/styled-import': 'error',
     'emotion/syntax-preference': ['error', 'object'],

@@ -1,6 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { ChronoTable } from './ChronoTable';
+
 // const earthYellow = '#e4b363';
 const gunmetal = '#253237';
 // const middlePurple = '#db85c9';
@@ -24,7 +26,7 @@ const Header = styled.div({
   color: platinum,
   fontSize: '3rem',
   fontWeight: 800,
-  padding: '1rem',
+  padding: '1rem 1rem 1rem 10vw',
 });
 
 export const Home: React.FunctionComponent = () => {
@@ -32,7 +34,9 @@ export const Home: React.FunctionComponent = () => {
     <>
       <Header>Chronometer</Header>
       <Background>
-        <Body>Body</Body>
+        <Body>
+          <ChronoTable />
+        </Body>
       </Background>
     </>
   );
