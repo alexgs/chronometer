@@ -1,34 +1,19 @@
 import * as React from 'react';
 
-import { HOURS } from '../constants';
+import { ActivityHistoryHour, ActivityHistorySegment, HOURS } from '../constants';
 
 export const Header: React.FunctionComponent = () => {
-  const hourCells = HOURS.map((intervals: string[], hourIndex: number) => (
-    <td key={hourIndex} colSpan={intervals.length}>
-      {hourIndex}
-    </td>
-  ));
-  const intervalCells = HOURS.map((intervals: string[], hourIndex: number) => {
-    return intervals
-      .map((_, intervalIndex: number) => {
-        let text: string | null = null;
-        switch (intervalIndex) {
-          case 0:
-            text = '00';
-            break;
-          case 1:
-            text = '15';
-            break;
-          case 2:
-            text = '30';
-            break;
-          case 3:
-            text = '45';
-            break;
-          default:
-            throw new Error(`Illegal interval index ${intervalIndex}`);
-        }
-        return <td key={`${hourIndex}.${intervalIndex}`}>{text}</td>;
+  const hourCells = HOURS.map((hour: ActivityHistoryHour) => {
+    return (
+      <td key={hour.index} colSpan={hour.segments.length}>
+        {hour.index}
+      </td>
+    );
+  });
+  const intervalCells = HOURS.map((hour: ActivityHistoryHour) => {
+    return hour.segments
+      .map((segment: ActivityHistorySegment) => {
+        return <td key={`${hour.index}.${segment.index}`}>{segment.text}</td>;
       })
       .flat();
   });

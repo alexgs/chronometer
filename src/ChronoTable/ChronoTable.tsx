@@ -1,5 +1,13 @@
 import * as React from 'react';
 
+import {
+  ActivityHistory,
+  ActivityHistoryHour,
+  ActivityHistorySegment,
+  getEmptyDay,
+  TimeCoordinate
+} from '../constants';
+
 import { Header } from './Header';
 import { Row } from './Row';
 
@@ -7,10 +15,6 @@ interface Activity {
   id: string;
   name: string;
   position: number;
-}
-
-interface ActivityHistory {
-  [time: string]: string[];
 }
 
 interface Activities {
@@ -37,37 +41,56 @@ const activities: Activities = {
 };
 /* eslint-enable @typescript-eslint/camelcase */
 
-const initialHistory: ActivityHistory = {
-  '1200': ['activity_0'],
-  '1215': [],
-  '1230': ['activity_2'],
-  '1245': ['activity_0'],
-};
+const initialHistory: ActivityHistory = getEmptyDay();
 
 function getSelectedTimes(
   activityId: string,
   history: ActivityHistory,
-): string[] {
-  return Object.keys(history).filter((time: string) =>
-    history[time].includes(activityId),
-  );
+): TimeCoordinate[] {
+  Object.values(history).map((hour: ActivityHistoryHour) => {
+    // TODO Finish this func. But I'm not sure if these data structures make sense
+    hour.segments.filter((segment) => segment.activities.includes())
+  });
+  return [];
+}
+
+function getActivities(history: ActivityHistory, time: TimeCoordinate): string[] {
+  const segments: ActivityHistorySegment[] = getSegments(history, time);
+  return segments[time.segment].activities;
+}
+
+function getSegments(history: ActivityHistory, time: TimeCoordinate): ActivityHistorySegment[] {
+  return history[time.hour].segments;
+}
+
+function hasActivity(history: ActivityHistory, time: TimeCoordinate, activityId: string): boolean {
+  return getActivities(history, time).includes(activityId)
+}
+
+function setActivities(history: ActivityHistory, time: TimeCoordinate, activities: string[]): ActivityHistory {
+  const segments: ActivityHistorySegment[] = [...getSegments(history, time)];
+  segments[time.segment].activities = activities;
+  return {
+    ...history,
+    [time.hour]: {
+      segments,
+      index: time.hour,
+    },
+  };
 }
 
 export const ChronoTable: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
-  function handleToggle(activityId: string, time: string): void {
-    let newState: string[] | null = null;
-    if (history[time].includes(activityId)) {
-      newState = history[time].filter((id: string) => id !== activityId);
+  function handleToggle(activityId: string, time: TimeCoordinate): void {
+    let newHistory: ActivityHistory | null = null;
+    if (hasActivity(history, time, activityId)) {
+      newHistory = setActivities(history, time, []);
     } else {
-      newState = [...history[time], activityId];
+      newHistory = setActivities(history, time, [activityId]);
     }
 
-    setHistory({
-      ...history,
-      [time]: newState,
-    });
+    setHistory(newHistory);
   }
 
   const rows = Object.values(activities).map((activity: Activity) => {
