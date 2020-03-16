@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { HOURS } from '../constants';
+import { HOURS } from './lib';
 
 export const Header: React.FunctionComponent = () => {
   const hourCells = HOURS.map((intervals: string[], hourIndex: number) => (

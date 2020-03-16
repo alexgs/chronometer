@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { HOURS } from '../constants';
+import { HOURS } from './lib';
 
 import { Cell } from './Cell';
 

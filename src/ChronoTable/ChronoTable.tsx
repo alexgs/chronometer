@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import { getEmptyDay } from '../constants';
+import { getEmptyDay } from './lib';
 
 import { Header } from './Header';
 import { Row } from './Row';
