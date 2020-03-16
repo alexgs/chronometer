@@ -1,8 +1,8 @@
 import * as React from 'react';
 
-import { HOURS } from './lib';
-
 import { Cell } from './Cell';
+import { HOURS, stringifyTimeCode } from './lib';
+import * as History from './types';
 
 export interface Props {
   activityId: string;
@@ -16,10 +16,13 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
     props.onToggle(props.activityId, time);
   }
 
-  const cells = HOURS.map((intervals: string[], hourIndex: number) => {
-    return intervals
-      .map((_, intervalIndex: number) => {
-        const time: string = hourIndex + '.' + intervalIndex;
+  const cells = HOURS.map((hour: History.Hour, hourId: History.HourId) => {
+    return hour
+      .map((_, segmentId: History.SegmentId) => {
+        const time: string = stringifyTimeCode({
+          hour: hourId,
+          segment: segmentId,
+        });
         return (
           <Cell
             key={time}

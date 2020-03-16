@@ -1,17 +1,15 @@
 import * as React from 'react';
 
-import { getEmptyDay } from './lib';
-
 import { Header } from './Header';
 import { Row } from './Row';
+import { getEmptyDay, parseTimeCode } from './lib';
+import * as History from './types';
 
 interface Activity {
   id: string;
   name: string;
   position: number;
 }
-
-type ActivityHistory = string[][];
 
 interface Activities {
   [id: string]: Activity;
@@ -37,17 +35,14 @@ const activities: Activities = {
 };
 /* eslint-enable @typescript-eslint/camelcase */
 
-const initialHistory: ActivityHistory = getEmptyDay();
+const initialHistory: History.Day = getEmptyDay();
 
-function getSelectedTimes(
-  activityId: string,
-  history: ActivityHistory,
-): string[] {
+function getSelectedTimes(activityId: string, history: History.Day): string[] {
   const output: string[] = [];
-  history.forEach((hour: string[], hourIndex: number) => {
-    hour.forEach((interval: string, intervalIndex: number) => {
-      if (interval === activityId) {
-        output.push(hourIndex + '.' + intervalIndex);
+  history.forEach((hour: History.Hour, hourId: History.HourId) => {
+    hour.forEach((segment: History.Segment, segmentId: History.SegmentId) => {
+      if (segment.includes(activityId)) {
+        output.push(hourId + '.' + segmentId);
       }
     });
   });
@@ -58,13 +53,13 @@ export const ChronoTable: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
   function handleToggle(activityId: string, time: string): void {
-    const [hour, segment] = time.split('.').map(s => parseInt(s, 10));
+    const { hour, segment } = parseTimeCode(time);
     const newState = [...history];
     newState[hour] = [...history[hour]];
-    if (history[hour][segment] === activityId) {
-      newState[hour][segment] = '';
+    if (history[hour][segment].includes(activityId)) {
+      newState[hour][segment] = [];
     } else {
-      newState[hour][segment] = activityId;
+      newState[hour][segment] = [activityId];
     }
 
     setHistory(newState);
