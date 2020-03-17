@@ -1,5 +1,5 @@
 import * as History from './types';
-import { TimeCode } from './types';
+import { HourId, SegmentId, TimeCode } from './types';
 
 export const HOURS: Readonly<History.Day> = getEmptyDay();
 
@@ -11,6 +11,34 @@ export function getEmptyDay(): History.Day {
     hours[h] = [[], [], [], []];
   }
   return hours;
+}
+
+export function printHour(id: HourId): string {
+  const nooner: string = id < 12 ? 'am' : 'pm';
+  let hour: string | null = null;
+  if (id === 0) {
+    hour = '12';
+  } else if (id <= 12) {
+    hour = `${id}`;
+  } else {
+    hour = `${id - 12}`;
+  }
+  return `${hour} ${nooner}`;
+}
+
+export function printSegment(id: SegmentId): string {
+  switch (id) {
+    case 0:
+      return '00';
+    case 1:
+      return '15';
+    case 2:
+      return '30';
+    case 3:
+      return '45';
+    default:
+      throw new Error(`Illegal segment ID ${id}`);
+  }
 }
 
 export function parseTimeCode(time: string): TimeCode {
