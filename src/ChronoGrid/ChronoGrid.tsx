@@ -63,7 +63,7 @@ const activities: Activities = {
 
 const initialHistory: History.Day = getEmptyDay();
 
-export const AltTable: React.FunctionComponent = () => {
+export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
   const activityNames = Object.values(activities).map((activity: Activity) => {
@@ -124,4 +124,4 @@ export const AltTable: React.FunctionComponent = () => {
     </GridContainer>
   );
 };
-AltTable.displayName = 'AltTable';
+ChronoGrid.displayName = 'ChronoGrid';

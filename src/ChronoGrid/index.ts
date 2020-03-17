@@ -1,1 +1,1 @@
-export * from './AltTable';
+export * from './ChronoGrid';

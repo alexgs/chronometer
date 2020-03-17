@@ -1,5 +1,5 @@
-import * as History from '../../types/history';
-import { HourId, SegmentId, TimeCode } from '../../types/history';
+import * as History from 'types/history';
+import { HourId, SegmentId, TimeCode } from 'types/history';
 
 export const HOURS: Readonly<History.Day> = getEmptyDay();
 

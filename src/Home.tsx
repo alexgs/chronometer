@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { AltTable } from './AltTable';
+import { ChronoGrid } from './ChronoGrid';
 import { ChronoTable } from './ChronoTable';
 
 // const earthYellow = '#e4b363';
@@ -37,7 +37,7 @@ export const Home: React.FunctionComponent = () => {
       <Background>
         <Body>
           <ChronoTable />
-          <AltTable />
+          <ChronoGrid />
         </Body>
       </Background>
     </>
