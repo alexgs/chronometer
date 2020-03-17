@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
+import { AltTable } from './AltTable';
 import { ChronoTable } from './ChronoTable';
-import { AltTable } from './ChronoTable/AltTable';
 
 // const earthYellow = '#e4b363';
 const gunmetal = '#253237';
