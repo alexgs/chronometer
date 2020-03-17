@@ -5,6 +5,13 @@ import * as History from 'types/history';
 
 import { getEmptyDay, printHour, printSegment, stringifyTimeCode } from './lib';
 
+const ACTIVITY_LABEL_COL = 0;
+const HEADER_ROWS = 2;
+const HOUR_LABEL_ROW = 0;
+const LABEL_COLS = 1;
+const SEGMENT_LABEL_ROW = 1;
+const SEGMENTS_PER_HOUR = 4;
+
 const GridContainer = styled.div({
   display: 'grid',
   gridGap: 0,
@@ -31,10 +38,9 @@ const GridCell = styled.div((props: CellProps) => {
 });
 
 const HourCell = styled(GridCell)((props: CellProps) => ({
-  gridRowStart: 1,
-  gridRowEnd: 2,
-  gridColumnStart: props.col * 4 + 2,
-  gridColumnEnd: props.col * 4 + 6,
+  gridColumnStart: props.col * SEGMENTS_PER_HOUR + LABEL_COLS + 1,
+  gridColumnEnd:
+    props.col * SEGMENTS_PER_HOUR + SEGMENTS_PER_HOUR + LABEL_COLS + 1,
 }));
 
 const SegmentCell = styled(GridCell)({
@@ -66,17 +72,12 @@ const initialHistory: History.Day = getEmptyDay();
 function getCheckboxMaker(
   hourId: History.HourId,
   segmentId: History.SegmentId,
+  timeCode: string,
 ) {
-  return function checkboxMaker(
-    activity: Activity,
-    activityIndex: number,
-  ): JSX.Element {
-    const id =
-      activity.id +
-      '_' +
-      stringifyTimeCode({ hour: hourId, segment: segmentId });
-    const col = hourId * 4 + segmentId + 1;
-    const row = activityIndex + 2;
+  return function checkboxMaker(activity: Activity): JSX.Element {
+    const id = `${activity.id}_${timeCode}`;
+    const col = hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
+    const row = activity.position + HEADER_ROWS;
     return (
       <SegmentCell key={id} col={col} row={row}>
         <input type={'checkbox'} />
@@ -90,7 +91,11 @@ export const ChronoGrid: React.FunctionComponent = () => {
 
   const activityNames = Object.values(activities).map((activity: Activity) => {
     return (
-      <GridCell key={activity.id} col={0} row={activity.position + 2}>
+      <GridCell
+        key={activity.id}
+        col={ACTIVITY_LABEL_COL}
+        row={activity.position + HEADER_ROWS}
+      >
         {activity.name}
       </GridCell>
     );
@@ -99,16 +104,23 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
     const segments = hour.map(
       (segment: History.Segment, segmentId: History.SegmentId) => {
-        const maker = getCheckboxMaker(hourId, segmentId);
+        const timeCode = stringifyTimeCode({
+          hour: hourId,
+          segment: segmentId,
+        });
+        const maker = getCheckboxMaker(hourId, segmentId, timeCode);
         const checkboxes = Object.values(activities)
           .map(maker)
           .flat();
 
-        const id = stringifyTimeCode({ hour: hourId, segment: segmentId });
-        const col = hourId * 4 + segmentId + 1;
+        const col = hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
         return (
-          <React.Fragment key={`fragment_${id}`}>
-            <SegmentCell key={id} col={col} row={1}>
+          <React.Fragment key={`fragment_${timeCode}`}>
+            <SegmentCell
+              key={`segment_${timeCode}`}
+              col={col}
+              row={SEGMENT_LABEL_ROW}
+            >
               {printSegment(segmentId)}
             </SegmentCell>
             {checkboxes}
@@ -119,7 +131,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
 
     return (
       <React.Fragment key={'container' + hourId}>
-        <HourCell key={'hour' + hourId} col={hourId} row={0}>
+        <HourCell key={'hour' + hourId} col={hourId} row={HOUR_LABEL_ROW}>
           {printHour(hourId)}
         </HourCell>
         {segments}
