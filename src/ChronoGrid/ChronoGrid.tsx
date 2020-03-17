@@ -63,6 +63,28 @@ const activities: Activities = {
 
 const initialHistory: History.Day = getEmptyDay();
 
+function getCheckboxMaker(
+  hourId: History.HourId,
+  segmentId: History.SegmentId,
+) {
+  return function checkboxMaker(
+    activity: Activity,
+    activityIndex: number,
+  ): JSX.Element {
+    const id =
+      activity.id +
+      '_' +
+      stringifyTimeCode({ hour: hourId, segment: segmentId });
+    const col = hourId * 4 + segmentId + 1;
+    const row = activityIndex + 2;
+    return (
+      <SegmentCell key={id} col={col} row={row}>
+        <input type={'checkbox'} />
+      </SegmentCell>
+    );
+  };
+}
+
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
@@ -77,32 +99,20 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
     const segments = hour.map(
       (segment: History.Segment, segmentId: History.SegmentId) => {
+        const maker = getCheckboxMaker(hourId, segmentId);
+        const checkboxes = Object.values(activities)
+          .map(maker)
+          .flat();
+
         const id = stringifyTimeCode({ hour: hourId, segment: segmentId });
         const col = hourId * 4 + segmentId + 1;
         return (
-          <SegmentCell key={id} col={col} row={1}>
-            {printSegment(segmentId)}
-          </SegmentCell>
-        );
-      },
-    );
-
-    const checkboxes = hour.map(
-      (segment: History.Segment, segmentId: History.SegmentId) => {
-        return Object.values(activities).map(
-          (activity: Activity, activityIndex: number) => {
-            const id =
-              activity.id +
-              '_' +
-              stringifyTimeCode({ hour: hourId, segment: segmentId });
-            const col = hourId * 4 + segmentId + 1;
-            const row = activityIndex + 2;
-            return (
-              <SegmentCell key={id} col={col} row={row}>
-                <input type={'checkbox'} />
-              </SegmentCell>
-            );
-          },
+          <React.Fragment key={`fragment_${id}`}>
+            <SegmentCell key={id} col={col} row={1}>
+              {printSegment(segmentId)}
+            </SegmentCell>
+            {checkboxes}
+          </React.Fragment>
         );
       },
     );
@@ -113,7 +123,6 @@ export const ChronoGrid: React.FunctionComponent = () => {
           {printHour(hourId)}
         </HourCell>
         {segments}
-        {checkboxes}
       </React.Fragment>
     );
   });
