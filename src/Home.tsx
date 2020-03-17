@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { ChronoTable } from './ChronoTable';
+import { AltTable } from './ChronoTable/AltTable';
 
 // const earthYellow = '#e4b363';
 const gunmetal = '#253237';
@@ -36,6 +37,7 @@ export const Home: React.FunctionComponent = () => {
       <Background>
         <Body>
           <ChronoTable />
+          <AltTable />
         </Body>
       </Background>
     </>
