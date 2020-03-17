@@ -3,7 +3,13 @@ import * as React from 'react';
 import { Activities, Activity } from 'types/activity';
 import * as History from 'types/history';
 
-import { getEmptyDay, printHour, printSegment, stringifyTimeCode } from './lib';
+import {
+  getEmptyDay,
+  parseTimeCode,
+  printHour,
+  printSegment,
+  stringifyTimeCode,
+} from './lib';
 
 const ACTIVITY_LABEL_COL = 0;
 const HEADER_ROWS = 2;
@@ -52,12 +58,12 @@ const activities: Activities = {
   activity_0: {
     id: 'activity_0',
     name: 'Working',
-    position: 0,
+    position: 1,
   },
   activity_1: {
     id: 'activity_1',
     name: 'Gym',
-    position: 1,
+    position: 0,
   },
   activity_2: {
     id: 'activity_2',
@@ -70,17 +76,26 @@ const activities: Activities = {
 const initialHistory: History.Day = getEmptyDay();
 
 function getCheckboxMaker(
-  hourId: History.HourId,
-  segmentId: History.SegmentId,
-  timeCode: string,
-) {
+  segmentData: History.Segment,
+  time: History.TimeCode,
+  onClick: (event: React.SyntheticEvent<HTMLInputElement>) => void,
+): (activity: Activity) => JSX.Element {
+  const timeCode = stringifyTimeCode(time);
+  const { hour: hourId, segment: segmentId } = time;
   return function checkboxMaker(activity: Activity): JSX.Element {
     const id = `${activity.id}_${timeCode}`;
     const col = hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
     const row = activity.position + HEADER_ROWS;
+    const checked = segmentData.includes(activity.id);
     return (
       <SegmentCell key={id} col={col} row={row}>
-        <input type={'checkbox'} />
+        <input
+          type={'checkbox'}
+          checked={checked}
+          data-activity-id={activity.id}
+          data-time-code={timeCode}
+          onChange={onClick}
+        />
       </SegmentCell>
     );
   };
@@ -88,6 +103,28 @@ function getCheckboxMaker(
 
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
+
+  function handleCheckboxClick(
+    event: React.SyntheticEvent<HTMLInputElement>,
+  ): void {
+    const dataset = event.currentTarget.dataset;
+    if (!dataset['activityId'] || !dataset['timeCode']) {
+      console.error('Error with dataset', dataset);
+      return;
+    }
+
+    const { hour, segment } = parseTimeCode(dataset.timeCode);
+    const activityId = dataset.activityId;
+    const newState = [...history];
+    newState[hour] = [...history[hour]];
+    if (history[hour][segment].includes(activityId)) {
+      newState[hour][segment] = [];
+    } else {
+      newState[hour][segment] = [activityId];
+    }
+
+    setHistory(newState);
+  }
 
   const activityNames = Object.values(activities).map((activity: Activity) => {
     return (
@@ -104,11 +141,12 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
     const segments = hour.map(
       (segment: History.Segment, segmentId: History.SegmentId) => {
-        const timeCode = stringifyTimeCode({
+        const time: History.TimeCode = {
           hour: hourId,
           segment: segmentId,
-        });
-        const maker = getCheckboxMaker(hourId, segmentId, timeCode);
+        };
+        const timeCode = stringifyTimeCode(time);
+        const maker = getCheckboxMaker(segment, time, handleCheckboxClick);
         const checkboxes = Object.values(activities)
           .map(maker)
           .flat();
