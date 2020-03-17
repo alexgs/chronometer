@@ -21,7 +21,6 @@ const SEGMENTS_PER_HOUR = 4;
 const GridContainer = styled.div({
   display: 'grid',
   gridGap: 0,
-  borderBottom: '1px solid lightgray',
   borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
@@ -32,25 +31,31 @@ interface CellProps {
 }
 
 const GridCell = styled.div((props: CellProps) => {
+  const borderLeft = (props.col - 1) % 4 === 0 ? '1px solid lightgray' : 'none';
+  const borderBottom =
+    props.row === SEGMENT_LABEL_ROW ? '1px solid lightgray' : 'none';
   return {
+    borderBottom,
+    borderLeft,
     gridRowStart: props.row + 1,
     gridRowEnd: props.row + 2,
     gridColumnStart: props.col + 1,
     gridColumnEnd: props.col + 2,
-    padding: 4,
-    borderTop: '1px solid lightgray',
-    borderLeft: '1px solid lightgray',
+    padding: '2px 0',
   };
 });
 
 const HourCell = styled(GridCell)((props: CellProps) => ({
+  borderLeft: '1px solid lightgray',
   gridColumnStart: props.col * SEGMENTS_PER_HOUR + LABEL_COLS + 1,
   gridColumnEnd:
     props.col * SEGMENTS_PER_HOUR + SEGMENTS_PER_HOUR + LABEL_COLS + 1,
+  textAlign: 'center',
 }));
 
 const SegmentCell = styled(GridCell)({
-  width: '1rem',
+  textAlign: 'center',
+  width: '1.5rem',
 });
 
 /* eslint-disable @typescript-eslint/camelcase */
