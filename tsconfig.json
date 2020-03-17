@@ -2,11 +2,16 @@
   "compilerOptions": {
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
     "jsx": "react",
     "outDir": "dist",
     "module": "none",
     "moduleResolution": "node",
     "noImplicitAny": true,
+    "paths": {
+      "src": ["./src"],
+      "types": ["./types"]
+    },
     "sourceMap": true,
     "strict": true,
     "target": "esnext"
