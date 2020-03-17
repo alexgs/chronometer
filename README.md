@@ -2,6 +2,18 @@
 
 A simple time-tracking app, modeled after BubbleTimer.
 
+## To Do
+
+- [ ] Highlight rows on mouse-over
+- [ ] Better padding for activity-name cells
+- [ ] Custom scrolling for the grid
+- [ ] Reorder activities
+- [ ] Add/remove/edit activities
+- [ ] Pretty checkboxes
+- [ ] Exceptions for DST, TZ changes, whatnot
+- [ ] Login and authentication
+- [ ] Backend
+
 ## Design Notes
 
 [Color palette][1]
