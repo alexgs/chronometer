@@ -52,7 +52,11 @@ export const Header: React.FunctionComponent = () => {
             hour: hourId,
             segment: segmentId,
           });
-          return <SegmentHeaderCell key={time} css={css}>{text}</SegmentHeaderCell>;
+          return (
+            <SegmentHeaderCell key={time} css={css}>
+              {text}
+            </SegmentHeaderCell>
+          );
         })
         .flat();
     },

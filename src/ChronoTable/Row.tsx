@@ -37,7 +37,10 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
           segment: segmentId,
         });
 
-        const css = segmentId === SEGMENTS_PER_HOUR - 1 ? { borderRight: '1px solid lightgray' } : {};
+        const css =
+          segmentId === SEGMENTS_PER_HOUR - 1
+            ? { borderRight: '1px solid lightgray' }
+            : {};
         return (
           <Cell
             key={time}
