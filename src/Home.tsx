@@ -9,11 +9,11 @@ const gunmetal = '#253237';
 const pastelRed = '#ef6461';
 const platinum = '#e8e9eb';
 
-const Background = styled.div({
+const Body = styled.div({
   backgroundColor: gunmetal,
 });
 
-const Body = styled.div({
+const Content = styled.div({
   backgroundColor: gunmetal,
   color: platinum,
   margin: '0 auto',
@@ -33,11 +33,11 @@ export const Home: React.FunctionComponent = () => {
   return (
     <>
       <Header>Chronometer</Header>
-      <Background>
-        <Body>
+      <Body>
+        <Content>
           <ChronoGrid />
-        </Body>
-      </Background>
+        </Content>
+      </Body>
     </>
   );
 };

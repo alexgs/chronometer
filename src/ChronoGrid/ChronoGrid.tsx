@@ -1,18 +1,19 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
 import { Activities } from 'types/activity';
-import * as History from 'types/history';
+import * as HistoryTypes from 'types/history';
 
 import { ActivityNames } from './ActivityNames';
-import { Hour } from './Hour';
+import { History } from './History';
 import { getEmptyDay, parseTimeCode } from './lib';
 
-const GridContainer = styled.div({
+const Container = styled.div({
   display: 'grid',
   gridGap: 0,
   borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
+Container.displayName = 'ChronoGrid.Container';
 
 /* eslint-disable @typescript-eslint/camelcase */
 const activities: Activities = {
@@ -34,7 +35,7 @@ const activities: Activities = {
 };
 /* eslint-enable @typescript-eslint/camelcase */
 
-const initialHistory: History.Day = getEmptyDay();
+const initialHistory: HistoryTypes.Day = getEmptyDay();
 
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
@@ -61,23 +62,15 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
-  const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
-    return (
-      <Hour
-        key={'hour_container_' + hourId}
+  return (
+    <Container>
+      <ActivityNames activities={activities} />
+      <History
         activities={activities}
-        hour={hour}
-        hourId={hourId}
+        history={history}
         onCheckboxClick={handleCheckboxClick}
       />
-    );
-  });
-
-  return (
-    <GridContainer>
-      <ActivityNames activities={activities} />
-      {gridBody}
-    </GridContainer>
+    </Container>
   );
 };
 ChronoGrid.displayName = 'ChronoGrid';

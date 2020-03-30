@@ -5,7 +5,7 @@ A simple time-tracking app, modeled after BubbleTimer.
 ## To Do
 
 - [ ] Highlight rows on mouse-over
-- [ ] Better padding for activity-name cells
+- [x] Better padding for activity-name cells
 - [ ] Custom scrolling for the grid
 - [ ] Reorder activities
 - [ ] Add/remove/edit activities
