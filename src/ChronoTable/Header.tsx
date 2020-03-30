@@ -1,23 +1,35 @@
+import { CSSObject } from '@emotion/core';
 import styled from '@emotion/styled';
 import * as React from 'react';
 import * as History from 'types/history';
 
 import { HOURS, printHour, stringifyTimeCode } from './lib';
 
-const HeaderCell = styled.td({
+const HourHeaderCell = styled.td({
+  borderRight: '1px solid lightgray',
   textAlign: 'center',
+});
+
+const SegmentHeaderCell = styled.td({
+  borderBottom: '1px solid lightgray',
 });
 
 export const Header: React.FunctionComponent = () => {
   const hourCells = HOURS.map((hour: History.Hour, hourId: History.HourId) => (
-    <HeaderCell key={hourId} colSpan={hour.length}>
+    <HourHeaderCell key={hourId} colSpan={hour.length}>
       {printHour(hourId)}
-    </HeaderCell>
+    </HourHeaderCell>
   ));
-  const intervalCells = HOURS.map(
+
+  const segmentCells = HOURS.map(
     (hour: History.Hour, hourId: History.HourId) => {
       return hour
         .map((_, segmentId: History.SegmentId) => {
+          const css: CSSObject = {
+            padding: 2,
+            textAlign: 'center',
+            width: '1.5rem',
+          };
           let text: string | null = null;
           switch (segmentId) {
             case 0:
@@ -31,6 +43,7 @@ export const Header: React.FunctionComponent = () => {
               break;
             case 3:
               text = '45';
+              css.borderRight = '1px solid lightgray';
               break;
             default:
               throw new Error(`Illegal segment index ${segmentId}`);
@@ -39,20 +52,21 @@ export const Header: React.FunctionComponent = () => {
             hour: hourId,
             segment: segmentId,
           });
-          return <td key={time}>{text}</td>;
+          return <SegmentHeaderCell key={time} css={css}>{text}</SegmentHeaderCell>;
         })
         .flat();
     },
   );
+
   return (
     <>
       <tr>
-        <td />
+        <td css={{ borderRight: '1px solid lightgray' }} />
         {hourCells}
       </tr>
       <tr>
-        <td />
-        {intervalCells}
+        <td css={{ borderRight: '1px solid lightgray' }} />
+        {segmentCells}
       </tr>
     </>
   );

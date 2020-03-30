@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { jsx } from '@emotion/core'
 import * as React from 'react';
 import { Activities, Activity } from 'types/activity';
 import * as History from 'types/history';
@@ -69,7 +71,7 @@ export const ChronoTable: React.FunctionComponent = () => {
   });
 
   return (
-    <table>
+    <table css={{ borderCollapse: 'collapse'}}>
       <thead>
         <Header />
       </thead>

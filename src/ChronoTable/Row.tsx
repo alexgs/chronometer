@@ -1,8 +1,21 @@
+import styled from '@emotion/styled';
 import * as React from 'react';
 import * as History from 'types/history';
 
 import { Cell } from './Cell';
+import { SEGMENTS_PER_HOUR } from './constants';
 import { HOURS, stringifyTimeCode } from './lib';
+
+const ChronoRow = styled.tr({
+  ':hover': {
+    backgroundColor: 'hotpink',
+  },
+});
+
+const ActivityNameCell = styled.td({
+  borderRight: '1px solid lightgray',
+  paddingRight: '1rem',
+});
 
 export interface Props {
   activityId: string;
@@ -23,9 +36,12 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
           hour: hourId,
           segment: segmentId,
         });
+
+        const css = segmentId === SEGMENTS_PER_HOUR - 1 ? { borderRight: '1px solid lightgray' } : {};
         return (
           <Cell
             key={time}
+            css={css}
             id={time}
             isChecked={props.selectedTimes.includes(time)}
             onClick={handleClick}
@@ -36,10 +52,10 @@ export const Row: React.FunctionComponent<Props> = (props: Props) => {
   });
 
   return (
-    <tr>
-      <td>{props.activityName}</td>
+    <ChronoRow>
+      <ActivityNameCell>{props.activityName}</ActivityNameCell>
       {cells}
-    </tr>
+    </ChronoRow>
   );
 };
 Row.displayName = 'ChronoTable.Row';
