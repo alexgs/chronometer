@@ -91,7 +91,7 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <React.Fragment key={'hour_fragment_' + props.hourId}>
       <HourCell
-        key={'hour' + props.hourId}
+        key={'hour_label_' + props.hourId}
         col={props.hourId}
         row={HOUR_LABEL_ROW}
       >

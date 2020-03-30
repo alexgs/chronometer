@@ -1,11 +1,10 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
-import { Activities, Activity } from 'types/activity';
+import { Activities } from 'types/activity';
 import * as History from 'types/history';
 
-import { GridCell } from './GridCell';
+import { ActivityNames } from './ActivityNames';
 import { Hour } from './Hour';
-import { ACTIVITY_LABEL_COL, HEADER_ROWS } from './constants';
 import { getEmptyDay, parseTimeCode } from './lib';
 
 const GridContainer = styled.div({
@@ -62,18 +61,6 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
-  const activityNames = Object.values(activities).map((activity: Activity) => {
-    return (
-      <GridCell
-        key={activity.id}
-        col={ACTIVITY_LABEL_COL}
-        row={activity.position + HEADER_ROWS}
-      >
-        {activity.name}
-      </GridCell>
-    );
-  });
-
   const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
     return (
       <Hour
@@ -88,7 +75,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
 
   return (
     <GridContainer>
-      {activityNames}
+      <ActivityNames activities={activities} />
       {gridBody}
     </GridContainer>
   );
