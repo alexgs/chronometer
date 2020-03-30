@@ -12,6 +12,7 @@ A simple time-tracking app, modeled after BubbleTimer.
 - [ ] Pretty checkboxes
 - [ ] Exceptions for DST, TZ changes, whatnot
 - [ ] Login and authentication
+- [ ] Dynamically change the number of hours displayed based on the screen width
 - [ ] Backend
 
 ## Design Notes

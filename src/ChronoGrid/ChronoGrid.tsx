@@ -5,6 +5,7 @@ import * as HistoryTypes from 'types/history';
 
 import { ActivityNames } from './ActivityNames';
 import { History } from './History';
+import { ScrollButton, ScrollDirection } from './ScrollButton';
 import { getEmptyDay, parseTimeCode } from './lib';
 
 const Container = styled.div({
@@ -37,6 +38,10 @@ const activities: Activities = {
 
 const initialHistory: HistoryTypes.Day = getEmptyDay();
 
+// TODO Get grid highlighting to work
+//  - I'm afraid this is going to be slow/unresponsive and we'll have to go back to ChronoTable
+//  - That's fine, but I want to make the change before doing more work on ChronoGrid
+// TODO Add FontAwesome arrows
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
@@ -62,13 +67,29 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
+  function handleScrollClick(direction: ScrollDirection): void {
+    console.log('<<', 'Direction Clicked:', direction, '>>');
+  }
+
   return (
     <Container>
       <ActivityNames activities={activities} />
+      <ScrollButton
+        activityCount={3}
+        direction={'left'}
+        onClick={handleScrollClick}
+      />
       <History
         activities={activities}
+        displayHours={8}
         history={history}
         onCheckboxClick={handleCheckboxClick}
+        startHour={5}
+      />
+      <ScrollButton
+        activityCount={3}
+        direction={'right'}
+        onClick={handleScrollClick}
       />
     </Container>
   );

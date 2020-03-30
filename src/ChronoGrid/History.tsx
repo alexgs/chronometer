@@ -6,24 +6,28 @@ import { Hour } from './Hour';
 
 interface Props {
   activities: Activities;
+  displayHours: number;
   history: HistoryTypes.Day;
   onCheckboxClick: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  startHour: number;
 }
 
 export const History: React.FunctionComponent<Props> = (props: Props) => {
-  const hours = props.history.map(
-    (hour: HistoryTypes.Hour, hourId: HistoryTypes.HourId) => {
+  const sliceStart = props.startHour;
+  const sliceEnd = props.startHour + props.displayHours;
+  const hours = props.history
+    .slice(sliceStart, sliceEnd)
+    .map((hour: HistoryTypes.Hour, hourId: HistoryTypes.HourId) => {
       return (
         <Hour
           key={'hour_container_' + hourId}
           activities={props.activities}
           hour={hour}
-          hourId={hourId}
+          hourId={hourId + props.startHour}
           onCheckboxClick={props.onCheckboxClick}
         />
       );
-    },
-  );
+    });
 
   return <>{hours}</>;
 };
