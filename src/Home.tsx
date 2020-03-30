@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { ChronoGrid } from './ChronoGrid';
 import { ChronoTable } from './ChronoTable';
 
 // const earthYellow = '#e4b363';
@@ -36,7 +35,6 @@ export const Home: React.FunctionComponent = () => {
       <Header>Chronometer</Header>
       <Body>
         <Content>
-          <ChronoGrid />
           <ChronoTable />
         </Content>
       </Body>
