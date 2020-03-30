@@ -4,6 +4,7 @@ import { Activities, Activity } from 'types/activity';
 import * as History from 'types/history';
 
 import { GridCell, CellProps } from './GridCell';
+import { SegmentCell } from './SegmentCell';
 import {
   HEADER_ROWS,
   HOUR_LABEL_ROW,
@@ -21,7 +22,7 @@ const HourCell = styled(GridCell)((props: CellProps) => ({
   textAlign: 'center',
 }));
 
-const SegmentCell = styled(GridCell)({
+const OtherSegmentCell = styled(GridCell)({
   textAlign: 'center',
   width: '1.5rem',
 });
@@ -30,6 +31,10 @@ function getCheckboxMaker(
   segmentData: History.Segment,
   time: History.TimeCode,
   onClick: (event: React.SyntheticEvent<HTMLInputElement>) => void,
+  onCellMouseOut: () => void,
+  onCellMouseOver: (row: number, timeCode: string) => void,
+  highlightRow: number,
+  highlightTimeCode: string,
 ): (activity: Activity) => JSX.Element {
   const timeCode = stringifyTimeCode(time);
   const { hour: hourId, segment: segmentId } = time;
@@ -39,15 +44,19 @@ function getCheckboxMaker(
     const row = activity.position + HEADER_ROWS;
     const checked = segmentData.includes(activity.id);
     return (
-      <SegmentCell key={id} col={col} row={row}>
-        <input
-          type={'checkbox'}
-          checked={checked}
-          data-activity-id={activity.id}
-          data-time-code={timeCode}
-          onChange={onClick}
-        />
-      </SegmentCell>
+      <SegmentCell
+        key={id}
+        activityId={activity.id}
+        checked={checked}
+        col={col}
+        onClick={onClick}
+        row={row}
+        timeCode={timeCode}
+        onCellMouseOut={onCellMouseOut}
+        onCellMouseOver={onCellMouseOver}
+        highlightRow={highlightRow}
+        highlightTimeCode={highlightTimeCode}
+      />
     );
   };
 }
@@ -57,6 +66,10 @@ interface Props {
   hour: History.Hour;
   hourId: History.HourId;
   onCheckboxClick: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onCellMouseOut: () => void;
+  onCellMouseOver: (row: number, timeCode: string) => void;
+  highlightRow: number;
+  highlightTimeCode: string;
 }
 
 export const Hour: React.FunctionComponent<Props> = (props: Props) => {
@@ -67,7 +80,15 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
         segment: segmentId,
       };
       const timeCode = stringifyTimeCode(time);
-      const maker = getCheckboxMaker(segment, time, props.onCheckboxClick);
+      const maker = getCheckboxMaker(
+        segment,
+        time,
+        props.onCheckboxClick,
+        props.onCellMouseOut,
+        props.onCellMouseOver,
+        props.highlightRow,
+        props.highlightTimeCode,
+      );
       const checkboxes = Object.values(props.activities)
         .map(maker)
         .flat();
@@ -75,13 +96,13 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
       const col = props.hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
       return (
         <React.Fragment key={`fragment_${timeCode}`}>
-          <SegmentCell
+          <OtherSegmentCell
             key={`segment_${timeCode}`}
             col={col}
             row={SEGMENT_LABEL_ROW}
           >
             {printSegment(segmentId)}
-          </SegmentCell>
+          </OtherSegmentCell>
           {checkboxes}
         </React.Fragment>
       );

@@ -2,6 +2,14 @@
 
 A simple time-tracking app, modeled after BubbleTimer.
 
+## Branch `deprecated/grid-highlighting`
+
+This branch exists for historical reasons, as a record of a thing that I tried, and it did not work.
+
+I experimented for a while with rendering the chart using CSS grid. It worked until I tried to implement highlighting of rows and columns on mouse-over. Since there are no rows and columns in CSS, I had to implement this with a JavaScript solution.
+
+Bottom line: It is super janky.
+
 ## To Do
 
 - [ ] Highlight rows on mouse-over

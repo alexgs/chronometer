@@ -37,6 +37,8 @@ const activities: Activities = {
 const initialHistory: History.Day = getEmptyDay();
 
 export const ChronoGrid: React.FunctionComponent = () => {
+  const [highlightRow, setHighlightRow] = React.useState(-1);
+  const [highlightTimeCode, setHighlightTimeCode] = React.useState('');
   const [history, setHistory] = React.useState(initialHistory);
 
   function handleCheckboxClick(
@@ -61,6 +63,18 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
+  function handleCellMouseOut(): void {
+    // console.log('mouse-out');
+    setHighlightRow(-1);
+    setHighlightTimeCode('');
+  }
+
+  function handleCellMouseOver(row: number, timeCode: string): void {
+    // console.log('mouse-over');
+    setHighlightRow(row);
+    setHighlightTimeCode(timeCode);
+  }
+
   const gridBody = history.map((hour: History.Hour, hourId: History.HourId) => {
     return (
       <Hour
@@ -69,6 +83,10 @@ export const ChronoGrid: React.FunctionComponent = () => {
         hour={hour}
         hourId={hourId}
         onCheckboxClick={handleCheckboxClick}
+        onCellMouseOut={handleCellMouseOut}
+        onCellMouseOver={handleCellMouseOver}
+        highlightRow={highlightRow}
+        highlightTimeCode={highlightTimeCode}
       />
     );
   });
