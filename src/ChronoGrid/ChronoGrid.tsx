@@ -7,6 +7,10 @@ import { ActivityNames } from './ActivityNames';
 import { History } from './History';
 import { ScrollButton, ScrollDirection } from './ScrollButton';
 import { getEmptyDay, parseTimeCode } from './lib';
+import './ChronoGrid.css';
+
+// NOTE: If there's something funky with row/column highlighting in the grid,
+//   check that `./ChronoGrid.css` has been generated.
 
 const Container = styled.div({
   display: 'grid',

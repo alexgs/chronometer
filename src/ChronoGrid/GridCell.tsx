@@ -2,7 +2,6 @@ import { CSSObject, css } from '@emotion/core';
 import * as React from 'react';
 
 import { SEGMENT_LABEL_ROW } from './constants';
-import './GridCell.css';
 
 export const baseCellStyle: CSSObject = {
   padding: 2,
