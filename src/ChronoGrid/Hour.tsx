@@ -15,13 +15,14 @@ import { printHour, printSegment, stringifyTimeCode } from './lib';
 function getCheckboxMaker(
   segmentData: History.Segment,
   time: History.TimeCode,
+  hourIndex: number,
   onClick: (event: React.SyntheticEvent<HTMLInputElement>) => void,
 ): (activity: Activity) => JSX.Element {
   const timeCode = stringifyTimeCode(time);
-  const { hour: hourId, segment: segmentId } = time;
+  const { segment: segmentId } = time;
   return function checkboxMaker(activity: Activity): JSX.Element {
     const id = `${activity.id}_${timeCode}`;
-    const col = hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
+    const col = hourIndex * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
     const row = activity.position + HEADER_ROWS;
     const checked = segmentData.includes(activity.id);
     return (
@@ -42,6 +43,7 @@ interface Props {
   activities: Activities;
   hour: History.Hour;
   hourId: History.HourId;
+  hourIndex: number;
   onCheckboxClick: (event: React.SyntheticEvent<HTMLInputElement>) => void;
 }
 
@@ -53,12 +55,17 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
         segment: segmentId,
       };
       const timeCode = stringifyTimeCode(time);
-      const maker = getCheckboxMaker(segment, time, props.onCheckboxClick);
+      const maker = getCheckboxMaker(
+        segment,
+        time,
+        props.hourIndex,
+        props.onCheckboxClick,
+      );
       const checkboxes = Object.values(props.activities)
         .map(maker)
         .flat();
 
-      const col = props.hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
+      const col = props.hourIndex * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
       return (
         <React.Fragment key={`fragment_${timeCode}`}>
           <GridCell
@@ -76,7 +83,7 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <React.Fragment key={'hour_fragment_' + props.hourId}>
-      <HourCell key={'hour_label_' + props.hourId} col={props.hourId}>
+      <HourCell key={'hour_label_' + props.hourId} col={props.hourIndex}>
         {printHour(props.hourId)}
       </HourCell>
       {segments}

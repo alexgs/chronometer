@@ -17,13 +17,14 @@ export const History: React.FunctionComponent<Props> = (props: Props) => {
   const sliceEnd = props.startHour + props.displayHours;
   const hours = props.history
     .slice(sliceStart, sliceEnd)
-    .map((hour: HistoryTypes.Hour, hourId: HistoryTypes.HourId) => {
+    .map((hour: HistoryTypes.Hour, hourIndex: number) => {
       return (
         <Hour
-          key={'hour_container_' + hourId}
+          key={'hour_container_' + hourIndex}
           activities={props.activities}
           hour={hour}
-          hourId={hourId + props.startHour}
+          hourId={hourIndex + props.startHour}
+          hourIndex={hourIndex}
           onCheckboxClick={props.onCheckboxClick}
         />
       );

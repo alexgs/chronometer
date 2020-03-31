@@ -6,6 +6,7 @@ import * as HistoryTypes from 'types/history';
 import { ActivityNames } from './ActivityNames';
 import { History } from './History';
 import { ScrollButton, ScrollDirection } from './ScrollButton';
+import { LABEL_COLS, SEGMENTS_PER_HOUR } from './constants';
 import { getEmptyDay, parseTimeCode } from './lib';
 import './ChronoGrid.css';
 
@@ -73,30 +74,29 @@ export const ChronoGrid: React.FunctionComponent = () => {
     console.log('<<', 'Direction Clicked:', direction, '>>');
   }
 
+  const displayHours = 6;
+  const hoverCols = [];
+  for (let i = 0; i < SEGMENTS_PER_HOUR * displayHours + LABEL_COLS; i++) {
+    hoverCols.push(<div key={i} className={`hover-col col-${i}`} />);
+  }
+  const maxRows = 8;
+  const hoverRows = [];
+  for (let i = 0; i < maxRows; i++) {
+    hoverRows.push(<div key={i} className={`hover-row row-${i}`} />);
+  }
+
   return (
     <Container>
       <ActivityNames activities={activities} />
       <History
         activities={activities}
-        displayHours={2}
+        displayHours={displayHours}
         history={history}
         onCheckboxClick={handleCheckboxClick}
-        startHour={0}
+        startHour={5}
       />
-      <div className={'hover-col col-0'} />
-      <div className={'hover-col col-1'} />
-      <div className={'hover-col col-2'} />
-      <div className={'hover-col col-3'} />
-      <div className={'hover-col col-4'} />
-      <div className={'hover-col col-5'} />
-      <div className={'hover-col col-6'} />
-      <div className={'hover-col col-7'} />
-      <div className={'hover-col col-8'} />
-      <div className={'hover-row row-0'} />
-      <div className={'hover-row row-1'} />
-      <div className={'hover-row row-2'} />
-      <div className={'hover-row row-3'} />
-      <div className={'hover-row row-4'} />
+      {hoverCols}
+      {hoverRows}
     </Container>
   );
 };
