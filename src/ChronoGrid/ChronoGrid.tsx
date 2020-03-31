@@ -11,7 +11,7 @@ import { getEmptyDay, parseTimeCode } from './lib';
 const Container = styled.div({
   display: 'grid',
   gridGap: 0,
-  gridTemplateColumns: '',
+  // gridTemplateColumns: '',
   borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
@@ -39,9 +39,6 @@ const activities: Activities = {
 
 const initialHistory: HistoryTypes.Day = getEmptyDay();
 
-// TODO Get grid highlighting to work
-//  - I'm afraid this is going to be slow/unresponsive and we'll have to go back to ChronoTable
-//  - That's fine, but I want to make the change before doing more work on ChronoGrid
 // TODO Add FontAwesome arrows
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
