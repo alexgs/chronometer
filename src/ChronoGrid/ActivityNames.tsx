@@ -10,15 +10,15 @@ interface Props {
 export const ActivityNames: React.FunctionComponent<Props> = (props: Props) => {
   const activityNames = Object.values(props.activities).map(
     (activity: Activity) => {
+      const cssColumn = ACTIVITY_LABEL_COL + 1;
       const row = activity.position + HEADER_ROWS;
+      const style = {
+        gridColumnStart: cssColumn,
+        gridColumnEnd: cssColumn + 1,
+        paddingRight: '1em',
+      };
       return (
-        <div
-          key={activity.id}
-          className={`gridcell col-${ACTIVITY_LABEL_COL} row-${row}`}
-          css={{
-            paddingRight: '1em',
-          }}
-        >
+        <div key={activity.id} className={`gridcell row-${row}`} css={style}>
           {activity.name}
         </div>
       );

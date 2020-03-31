@@ -1,27 +1,19 @@
-import styled from '@emotion/styled';
+import { css, CSSObject } from '@emotion/core';
 import * as React from 'react';
 
-import { HEADER_ROWS, LABEL_COLS, SEGMENTS_PER_HOUR } from './constants';
-
-interface ButtonProps {
-  activityCount: number;
-  col: number;
-}
-
-const ButtonCell = styled.div((props: ButtonProps) => {
-  return {
-    gridRowStart: 1,
-    gridRowEnd: props.activityCount + HEADER_ROWS + 1,
-    gridColumnStart: props.col,
-    gridColumnEnd: props.col + 1,
-    padding: '2px 0',
-  };
-});
+import { baseCellStyle } from './GridCell';
+import {
+  DISPLAY_HOURS,
+  HEADER_ROWS,
+  LABEL_COLS,
+  LEFT_SCROLL_BUTTON_COLS,
+  SEGMENTS_PER_HOUR,
+} from './constants';
 
 export type ScrollDirection = 'left' | 'right';
 
 interface Props {
-  activityCount: ButtonProps['activityCount'];
+  activityCount: number;
   onClick: (variant: ScrollDirection) => void;
   direction: ScrollDirection;
 }
@@ -31,18 +23,27 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
     props.onClick(props.direction);
   }
 
-  const col =
+  const column =
     props.direction === 'left'
       ? LABEL_COLS + 1
-      : 24 * SEGMENTS_PER_HOUR + LABEL_COLS + 1;
+      : DISPLAY_HOURS * SEGMENTS_PER_HOUR +
+        LABEL_COLS +
+        LEFT_SCROLL_BUTTON_COLS +
+        1;
+  const borders: CSSObject = {
+    borderLeft: '1px solid lightgray',
+  };
+  const position: CSSObject = {
+    gridColumnEnd: column + 1,
+    gridColumnStart: column,
+    gridRowEnd: props.activityCount + HEADER_ROWS + 1,
+    gridRowStart: 1,
+    padding: '2px 0',
+  };
   return (
-    <ButtonCell
-      activityCount={props.activityCount}
-      col={col}
-      onClick={handleClick}
-    >
+    <div css={css(baseCellStyle, position, borders)} onClick={handleClick}>
       {props.direction}
-    </ButtonCell>
+    </div>
   );
 };
 ScrollButton.displayName = 'ChronoGrid.ScrollButton';

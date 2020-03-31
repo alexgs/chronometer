@@ -3,6 +3,7 @@
 $HEADER_ROWS: 2;
 $HOUR_LABEL_ROW: 0;
 $LABEL_COLS: 1;
+$LEFT_SCROLL_BUTTON_COLS: 1;
 $MAX_HOURS: 8;
 $MAX_ROWS: 8;
 $SEGMENTS_PER_HOUR: 4;
@@ -30,7 +31,7 @@ by running the command `npm run build:css`.
 
 @for $i from 0 to $MAX_COLUMNS {
   .col-#{$i} {
-    grid-column: #{$i + 1};
+    grid-column: #{$LEFT_SCROLL_BUTTON_COLS + $i + 1};
   }
 }
 
