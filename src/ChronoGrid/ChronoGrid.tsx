@@ -11,6 +11,7 @@ import { getEmptyDay, parseTimeCode } from './lib';
 const Container = styled.div({
   display: 'grid',
   gridGap: 0,
+  gridTemplateColumns: '',
   borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
@@ -74,23 +75,27 @@ export const ChronoGrid: React.FunctionComponent = () => {
   return (
     <Container>
       <ActivityNames activities={activities} />
-      <ScrollButton
-        activityCount={3}
-        direction={'left'}
-        onClick={handleScrollClick}
-      />
       <History
         activities={activities}
-        displayHours={8}
+        displayHours={2}
         history={history}
         onCheckboxClick={handleCheckboxClick}
-        startHour={5}
+        startHour={0}
       />
-      <ScrollButton
-        activityCount={3}
-        direction={'right'}
-        onClick={handleScrollClick}
-      />
+      <div className={'hover-col col-0'} />
+      <div className={'hover-col col-1'} />
+      <div className={'hover-col col-2'} />
+      <div className={'hover-col col-3'} />
+      <div className={'hover-col col-4'} />
+      <div className={'hover-col col-5'} />
+      <div className={'hover-col col-6'} />
+      <div className={'hover-col col-7'} />
+      <div className={'hover-col col-8'} />
+      <div className={'hover-row row-0'} />
+      <div className={'hover-row row-1'} />
+      <div className={'hover-row row-2'} />
+      <div className={'hover-row row-3'} />
+      <div className={'hover-row row-4'} />
     </Container>
   );
 };

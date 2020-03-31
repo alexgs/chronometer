@@ -75,13 +75,13 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
       const col = props.hourId * SEGMENTS_PER_HOUR + segmentId + LABEL_COLS;
       return (
         <React.Fragment key={`fragment_${timeCode}`}>
-          <SegmentCell
+          <GridCell
             key={`segment_${timeCode}`}
             col={col}
             row={SEGMENT_LABEL_ROW}
           >
             {printSegment(segmentId)}
-          </SegmentCell>
+          </GridCell>
           {checkboxes}
         </React.Fragment>
       );
@@ -90,13 +90,6 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
 
   return (
     <React.Fragment key={'hour_fragment_' + props.hourId}>
-      <HourCell
-        key={'hour_label_' + props.hourId}
-        col={props.hourId}
-        row={HOUR_LABEL_ROW}
-      >
-        {printHour(props.hourId)}
-      </HourCell>
       {segments}
     </React.Fragment>
   );
