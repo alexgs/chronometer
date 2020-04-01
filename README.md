@@ -2,6 +2,10 @@
 
 A simple time-tracking app, modeled after BubbleTimer.
 
+## Branch `deprecated/return-of-chronotable`
+
+This branch exists for historical reasons. When I first tried to implement highlighting on `ChronoGrid`, I used a JavaScript approach that was janky as hell. I tried going back to a layout using `<table>` before I discovered a pure CSS solution for CSS Grid.
+
 ## To Do
 
 - [ ] Highlight rows on mouse-over
