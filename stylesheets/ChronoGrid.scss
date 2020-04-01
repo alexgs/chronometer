@@ -1,0 +1,58 @@
+// --- CONSTANTS ---
+// These values should match what's in `../src/ChronoGrid/constants.ts` but adjusted for CSS's 1-based indexing
+$HEADER_ROWS: 2;
+$HOUR_LABEL_ROW: 0;
+$LABEL_COLS: 1;
+$LEFT_SCROLL_BUTTON_COLS: 1;
+$MAX_HOURS: 8;
+$MAX_ROWS: 8;
+$SEGMENTS_PER_HOUR: 4;
+
+$MAX_SEGMENTS: $MAX_HOURS * $SEGMENTS_PER_HOUR;
+$MAX_COLUMNS: $LABEL_COLS + $MAX_SEGMENTS;
+
+$hover-color: #667073;
+
+// --- CONTENT ---
+/*
+WARNING: THIS IS A GENERATED FILE!! It is generated from `../../stylesheets/ChronoGrid.scss`
+by running the command `npm run build:css`.
+*/
+
+.gridcell {
+  z-index: 1;
+}
+
+@for $i from 0 to $MAX_ROWS {
+  .row-#{$i} {
+    grid-row: #{$i + 1};
+  }
+}
+
+@for $i from 0 to $MAX_COLUMNS {
+  .col-#{$i} {
+    grid-column: #{$LEFT_SCROLL_BUTTON_COLS + $i + 1};
+  }
+}
+
+.hover-col {
+  grid-row: #{$HEADER_ROWS + 1} / #{$MAX_ROWS + 1};
+  z-index: 0;
+}
+
+.hover-row {
+  grid-column: #{$LABEL_COLS + 1} / #{$MAX_COLUMNS + 1};
+  z-index: 0;
+}
+
+@for $i from $LABEL_COLS to $MAX_COLUMNS {
+  .col-#{$i}.gridcell:hover ~ .col-#{$i}.hover-col {
+    background-color: $hover-color;
+  }
+}
+
+@for $i from $HEADER_ROWS to $MAX_ROWS {
+  .row-#{$i}.gridcell:hover ~ .row-#{$i}.hover-row {
+    background-color: $hover-color;
+  }
+}

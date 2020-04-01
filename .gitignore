@@ -28,3 +28,5 @@ npm-debug.log*
 .env.test.local
 .env.production.local
 
+# --- Generated Files ---
+src/ChronoGrid/ChronoGrid.css

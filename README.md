@@ -4,15 +4,23 @@ A simple time-tracking app, modeled after BubbleTimer.
 
 ## To Do
 
-- [ ] Highlight rows on mouse-over
-- [ ] Better padding for activity-name cells
-- [ ] Custom scrolling for the grid
+- [x] Highlight rows on mouse-over
+- [x] Better padding for activity-name cells
+- [x] Custom scrolling for the grid
 - [ ] Reorder activities
 - [ ] Add/remove/edit activities
 - [ ] Pretty checkboxes
 - [ ] Exceptions for DST, TZ changes, whatnot
 - [ ] Login and authentication
+- [ ] Dynamically change the number of hours displayed based on the screen width
 - [ ] Backend
+
+## Dev Setup
+
+- Follow the [npm configuration instructions][2] for **Font Awesome Pro**.
+- Generate static CSS files by running `npm run build:css`.
+
+[2]: https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers#installing-pro
 
 ## Design Notes
 

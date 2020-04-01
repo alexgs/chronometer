@@ -1,13 +1,7 @@
-import styled from '@emotion/styled';
 import * as React from 'react';
 import { Activities, Activity } from 'types/activity';
 
-import { GridCell } from './GridCell';
 import { ACTIVITY_LABEL_COL, HEADER_ROWS } from './constants';
-
-const NameCell = styled(GridCell)({
-  paddingRight: '1em',
-});
 
 interface Props {
   activities: Activities;
@@ -16,14 +10,17 @@ interface Props {
 export const ActivityNames: React.FunctionComponent<Props> = (props: Props) => {
   const activityNames = Object.values(props.activities).map(
     (activity: Activity) => {
+      const cssColumn = ACTIVITY_LABEL_COL + 1;
+      const row = activity.position + HEADER_ROWS;
+      const style = {
+        gridColumnStart: cssColumn,
+        gridColumnEnd: cssColumn + 1,
+        paddingRight: '1em',
+      };
       return (
-        <NameCell
-          key={activity.id}
-          col={ACTIVITY_LABEL_COL}
-          row={activity.position + HEADER_ROWS}
-        >
+        <div key={activity.id} className={`gridcell row-${row}`} css={style}>
           {activity.name}
-        </NameCell>
+        </div>
       );
     },
   );
