@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Activities } from 'types/activity';
+import { Activities, Activity } from 'types/activity';
 import * as HistoryTypes from 'types/history';
 
 import { Hour } from './Hour';
@@ -8,7 +8,7 @@ interface Props {
   activities: Activities;
   displayHours: number;
   history: HistoryTypes.Day;
-  onCheckboxClick: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onCheckboxClick: (activityId: Activity['id'], timeCode: string) => void;
   startHour: number;
 }
 

@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Activities, Activity } from 'types/activity';
 import * as History from 'types/history';
 
+import { Buggle } from './Buggle';
 import { GridCell } from './GridCell';
 import { HourCell } from './HourCell';
 import {
@@ -16,7 +17,7 @@ function getCheckboxMaker(
   segmentData: History.Segment,
   time: History.TimeCode,
   hourIndex: number,
-  onClick: (event: React.SyntheticEvent<HTMLInputElement>) => void,
+  onClick: (activityId: Activity['id'], timeCode: string) => void,
 ): (activity: Activity) => JSX.Element {
   const timeCode = stringifyTimeCode(time);
   const { segment: segmentId } = time;
@@ -27,12 +28,11 @@ function getCheckboxMaker(
     const checked = segmentData.includes(activity.id);
     return (
       <GridCell key={id} col={col} row={row}>
-        <input
-          type={'checkbox'}
-          checked={checked}
-          data-activity-id={activity.id}
-          data-time-code={timeCode}
-          onChange={onClick}
+        <Buggle
+          activityId={activity.id}
+          isChecked={checked}
+          onClick={onClick}
+          timeCode={timeCode}
         />
       </GridCell>
     );
@@ -44,7 +44,7 @@ interface Props {
   hour: History.Hour;
   hourId: History.HourId;
   hourIndex: number;
-  onCheckboxClick: (event: React.SyntheticEvent<HTMLInputElement>) => void;
+  onCheckboxClick: (activityId: Activity['id'], timeCode: string) => void;
 }
 
 export const Hour: React.FunctionComponent<Props> = (props: Props) => {

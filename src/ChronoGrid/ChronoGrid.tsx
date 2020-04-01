@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
-import { Activities } from 'types/activity';
+import { Activities, Activity } from 'types/activity';
 import * as HistoryTypes from 'types/history';
 
 import { ActivityNames } from './ActivityNames';
@@ -48,16 +48,10 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const [startHour, setStartHour] = React.useState(0);
 
   function handleCheckboxClick(
-    event: React.SyntheticEvent<HTMLInputElement>,
+    activityId: Activity['id'],
+    timeCode: string,
   ): void {
-    const dataset = event.currentTarget.dataset;
-    if (!dataset['activityId'] || !dataset['timeCode']) {
-      console.error('Error with dataset', dataset);
-      return;
-    }
-
-    const { hour, segment } = parseTimeCode(dataset.timeCode);
-    const activityId = dataset.activityId;
+    const { hour, segment } = parseTimeCode(timeCode);
     const newState = [...history];
     newState[hour] = [...history[hour]];
     if (history[hour][segment].includes(activityId)) {
