@@ -44,6 +44,7 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
     borderBottom: '1px solid lightgray',
     borderLeft: '1px solid lightgray',
     borderTop: '1px solid lightgray',
+    cursor: 'pointer',
     display: 'flex',
     flexDirection: 'column',
     gridColumnEnd: column + 1,

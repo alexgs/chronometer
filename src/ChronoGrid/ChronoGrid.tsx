@@ -16,7 +16,6 @@ import './ChronoGrid.css';
 const Container = styled.div({
   display: 'grid',
   gridGap: 0,
-  // gridTemplateColumns: '',
   borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
@@ -46,6 +45,7 @@ const initialHistory: HistoryTypes.Day = getEmptyDay();
 
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
+  const [startHour, setStartHour] = React.useState(0);
 
   function handleCheckboxClick(
     event: React.SyntheticEvent<HTMLInputElement>,
@@ -70,7 +70,11 @@ export const ChronoGrid: React.FunctionComponent = () => {
   }
 
   function handleScrollClick(direction: ScrollDirection): void {
-    console.log('<<', 'Direction Clicked:', direction, '>>');
+    if (direction === 'left') {
+      setStartHour(Math.max(startHour - 1, 0));
+    } else {
+      setStartHour(Math.min(startHour + 1, 24 - DISPLAY_HOURS));
+    }
   }
 
   const hoverCols = [];
@@ -98,7 +102,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
         displayHours={DISPLAY_HOURS}
         history={history}
         onCheckboxClick={handleCheckboxClick}
-        startHour={5}
+        startHour={startHour}
       />
       <ScrollButton
         activityCount={activityCount}
