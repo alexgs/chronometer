@@ -1,4 +1,5 @@
 import { css, CSSObject } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
 import { baseCellStyle } from './GridCell';
@@ -30,19 +31,32 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
         LABEL_COLS +
         LEFT_SCROLL_BUTTON_COLS +
         1;
-  const borders: CSSObject = {
+
+  const icon =
+    props.direction === 'left' ? (
+      <FontAwesomeIcon icon={['fad', 'chevron-double-left']} />
+    ) : (
+      <FontAwesomeIcon icon={['fad', 'chevron-double-right']} />
+    );
+
+  const layout: CSSObject = {
+    backgroundColor: '#3b474b',
+    borderBottom: '1px solid lightgray',
     borderLeft: '1px solid lightgray',
-  };
-  const position: CSSObject = {
+    borderTop: '1px solid lightgray',
+    display: 'flex',
+    flexDirection: 'column',
     gridColumnEnd: column + 1,
     gridColumnStart: column,
     gridRowEnd: props.activityCount + HEADER_ROWS + 1,
     gridRowStart: 1,
-    padding: '2px 0',
+    justifyContent: 'center',
+    width: 'auto',
+    zIndex: 2,
   };
   return (
-    <div css={css(baseCellStyle, position, borders)} onClick={handleClick}>
-      {props.direction}
+    <div css={css(baseCellStyle, layout)} onClick={handleClick}>
+      {icon}
     </div>
   );
 };

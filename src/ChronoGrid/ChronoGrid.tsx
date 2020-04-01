@@ -44,7 +44,6 @@ const activities: Activities = {
 
 const initialHistory: HistoryTypes.Day = getEmptyDay();
 
-// TODO Add FontAwesome arrows
 export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
 
