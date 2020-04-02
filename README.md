@@ -9,7 +9,7 @@ A simple time-tracking app, modeled after BubbleTimer.
 - [x] Custom scrolling for the grid
 - [ ] Reorder activities
 - [ ] Add/remove/edit activities
-- [ ] Pretty checkboxes
+- [x] Pretty checkboxes
 - [ ] Exceptions for DST, TZ changes, whatnot
 - [ ] Login and authentication
 - [ ] Dynamically change the number of hours displayed based on the screen width
