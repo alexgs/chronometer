@@ -2,12 +2,7 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 import { ChronoGrid } from './ChronoGrid';
-
-// const earthYellow = '#e4b363';
-const gunmetal = '#253237';
-// const middlePurple = '#db85c9';
-const pastelRed = '#ef6461';
-const platinum = '#e8e9eb';
+import { gunmetal, platinum, pastelRed } from './colors';
 
 const Body = styled.div({
   backgroundColor: gunmetal,

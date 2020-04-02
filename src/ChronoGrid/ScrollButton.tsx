@@ -2,6 +2,8 @@ import { css, CSSObject } from '@emotion/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
 
+import { tints } from '../colors';
+
 import { baseCellStyle } from './GridCell';
 import {
   DISPLAY_HOURS,
@@ -40,7 +42,7 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
     );
 
   const layout: CSSObject = {
-    backgroundColor: '#3b474b',
+    backgroundColor: tints.gunmetal[10],
     borderBottom: '1px solid lightgray',
     borderLeft: '1px solid lightgray',
     borderTop: '1px solid lightgray',

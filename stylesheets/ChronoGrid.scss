@@ -1,5 +1,6 @@
 // --- CONSTANTS ---
 // These values should match what's in `../src/ChronoGrid/constants.ts` but adjusted for CSS's 1-based indexing
+
 $HEADER_ROWS: 2;
 $HOUR_LABEL_ROW: 0;
 $LABEL_COLS: 1;
@@ -11,7 +12,13 @@ $SEGMENTS_PER_HOUR: 4;
 $MAX_SEGMENTS: $MAX_HOURS * $SEGMENTS_PER_HOUR;
 $MAX_COLUMNS: $LABEL_COLS + $MAX_SEGMENTS;
 
-$hover-color: #667073;
+// --- COLORS ---
+// These values should match what's in `.../src/colors.ts`
+
+$GUNMETAL: #253237;
+$GUNMETAL_TINT_5: #303c41;
+$GUNMETAL_TINT_10: #3b474b;
+$GUNMETAL_TINT_30: #667073;
 
 // --- CONTENT ---
 /*
@@ -47,12 +54,12 @@ by running the command `npm run build:css`.
 
 @for $i from $LABEL_COLS to $MAX_COLUMNS {
   .col-#{$i}.gridcell:hover ~ .col-#{$i}.hover-col {
-    background-color: $hover-color;
+    background-color: $GUNMETAL_TINT_10;
   }
 }
 
 @for $i from $HEADER_ROWS to $MAX_ROWS {
   .row-#{$i}.gridcell:hover ~ .row-#{$i}.hover-row {
-    background-color: $hover-color;
+    background-color: $GUNMETAL_TINT_10;
   }
 }
