@@ -5,6 +5,7 @@ import * as HistoryTypes from 'types/history';
 
 import { ActivityNames } from './ActivityNames';
 import { History } from './History';
+import { NewActivityButton } from './NewActivityButton';
 import { ScrollButton, ScrollDirection } from './ScrollButton';
 import { DISPLAY_HOURS, LABEL_COLS, SEGMENTS_PER_HOUR } from './constants';
 import { getEmptyDay, parseTimeCode } from './lib';
@@ -16,7 +17,6 @@ import './ChronoGrid.css';
 const Container = styled.div({
   display: 'grid',
   gridGap: 0,
-  borderRight: '1px solid lightgray',
   width: 'fit-content',
 });
 Container.displayName = 'ChronoGrid.Container';
@@ -105,6 +105,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
       />
       {hoverCols}
       {hoverRows}
+      <NewActivityButton />
     </Container>
   );
 };

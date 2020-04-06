@@ -57,6 +57,9 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
     width: 'auto',
     zIndex: 2,
   };
+  if (props.direction === 'right') {
+    layout.borderRight = '1px solid lightgray';
+  }
   return (
     <div css={css(baseCellStyle, layout)} onClick={handleClick}>
       {icon}

@@ -15,7 +15,7 @@ export const ActivityNames: React.FunctionComponent<Props> = (props: Props) => {
       const style = {
         gridColumnStart: cssColumn,
         gridColumnEnd: cssColumn + 1,
-        paddingRight: '1em',
+        paddingRight: '1rem',
       };
       return (
         <div key={activity.id} className={`gridcell row-${row}`} css={style}>

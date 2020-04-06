@@ -7,13 +7,20 @@ A simple time-tracking app, modeled after BubbleTimer.
 - [x] Highlight rows on mouse-over
 - [x] Better padding for activity-name cells
 - [x] Custom scrolling for the grid
+- [x] Pretty checkboxes
 - [ ] Reorder activities
 - [ ] Add/remove/edit activities
-- [x] Pretty checkboxes
 - [ ] Exceptions for DST, TZ changes, whatnot
 - [ ] Login and authentication
 - [ ] Dynamically change the number of hours displayed based on the screen width
 - [ ] Backend
+
+**Future Work**
+
+- [ ] Scrolling improvements: Animation
+- [ ] Scrolling improvements: Button to move +/- 6 hours
+- [ ] Shift-click to select multiple segments in one row
+- [ ] Ctrl-click to select multiple activities for the same segment
 
 ## Dev Setup
 
