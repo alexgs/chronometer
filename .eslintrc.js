@@ -7,6 +7,7 @@ module.exports = {
   },
   plugins: ['@typescript-eslint', 'emotion', 'import', 'react', 'react-hooks'],
   settings: {
+    'import/internal-regex': '^src/|^types/',
     react: {
       version: 'detect',
     },

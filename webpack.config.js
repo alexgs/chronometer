@@ -3,6 +3,7 @@
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
+const TsPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
   devServer: {
@@ -42,5 +43,6 @@ module.exports = {
     },
     extensions: ['.tsx', '.ts', '.js', '.json'],
     modules: ['node_modules'],
+    plugins: [new TsPathsPlugin()],
   },
 };
