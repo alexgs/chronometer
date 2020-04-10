@@ -1,16 +1,18 @@
 import { CSSObject } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Field, Formik, Form, FormikValues } from 'formik';
 import * as React from 'react';
 
-import { platinum, earthYellow } from 'src/colors';
+import { earthYellow, gunmetal, platinum } from 'src/colors';
 
-const button: CSSObject = {
+const addButton: CSSObject = {
   cursor: 'pointer',
 };
 
 const buttonCell: CSSObject = {
+  position: 'relative',
   gridColumn: 1,
-  paddingRight: '1rem',
+  minWidth: '11rem',
 };
 
 const input: CSSObject = {
@@ -19,11 +21,21 @@ const input: CSSObject = {
   color: platinum,
   lineHeight: '1.2rem',
   padding: 4,
+  width: 'calc(100% - 40px)',
 
   ':focus': {
     outline: 'none',
   },
 };
+
+const saveButton: CSSObject = {
+  border: 'none',
+  backgroundColor: gunmetal,
+  color: platinum,
+  cursor: 'pointer',
+  margin: '1px 0px 1px 6px',
+  padding: 0,
+}
 
 interface FormValues extends FormikValues {
   activityName: string;
@@ -33,7 +45,6 @@ interface Props {
   onAddActivity: (activityName: string) => void;
 }
 
-// TODO Add "save" icon
 export const NewActivityButton: React.FC<Props> = (props: Props) => {
   const [showInput, setShowInput] = React.useState(false);
 
@@ -43,8 +54,13 @@ export const NewActivityButton: React.FC<Props> = (props: Props) => {
 
   function handleFormikSubmit(values: FormValues, { setSubmitting }: any): void {
     setSubmitting(false);
+    // TODO Is this the best approach to building this UI component?
+    //   Is there an existing component library that provides something close enough?
+    //   Is there a simpler thing to build from primitives?
+    //   Is there a different approach that doesn't use forms (like "inline editable" or something)?
     // TODO Reset initial value
     // TODO Prevent submitting an empty string
+    // TODO How to cancel?
     setShowInput(!showInput);
     props.onAddActivity(values.activityName);
   }
@@ -52,20 +68,23 @@ export const NewActivityButton: React.FC<Props> = (props: Props) => {
   return (
     <div className={'row-5'} css={buttonCell}>
       <div
-        css={[button, { display: showInput ? 'none' : 'block' }]}
+        css={[addButton, { display: showInput ? 'none' : 'block' }]}
         onClick={handleButtonClick}
         role={'button'}
       >
         Add New Activity
       </div>
       <Formik initialValues={{activityName: ''}} onSubmit={handleFormikSubmit}>
-        <Form>
+        <Form css={{ display: showInput ? 'block' : 'none' }}>
           <Field
             type={'text'}
-            css={[input, { display: showInput ? 'block' : 'none' }]}
+            css={input}
             name={'activityName'}
             placeholder={'Activity Name'}
           />
+          <button type={'submit'} css={saveButton}>
+            <FontAwesomeIcon icon={['fal', 'save']} size={'lg'} />
+          </button>
         </Form>
       </Formik>
     </div>
