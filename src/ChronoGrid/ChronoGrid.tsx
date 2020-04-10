@@ -47,6 +47,10 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const [history, setHistory] = React.useState(initialHistory);
   const [startHour, setStartHour] = React.useState(0);
 
+  function handleAddActivity(activityName: string): void {
+    console.log(`>> Added new activity "${activityName}" <<`);
+  }
+
   function handleCheckboxClick(
     activityId: Activity['id'],
     timeCode: string,
@@ -105,7 +109,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
       />
       {hoverCols}
       {hoverRows}
-      <NewActivityButton />
+      <NewActivityButton onAddActivity={handleAddActivity} />
     </Container>
   );
 };
