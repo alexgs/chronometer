@@ -49,6 +49,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
   const [startHour, setStartHour] = React.useState(0);
 
   function handleAddActivity(activityName: string): void {
+    // TODO Handle adding row
     console.log(`>> Added new activity "${activityName}" <<`);
   }
 

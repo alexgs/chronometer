@@ -1,11 +1,8 @@
 import { CSSObject } from '@emotion/core';
+import { Field, Formik, Form, FormikValues } from 'formik';
 import * as React from 'react';
 
 import { platinum, earthYellow } from 'src/colors';
-
-interface Props {
-  onAddActivity: (activityName: string) => void;
-}
 
 const button: CSSObject = {
   cursor: 'pointer',
@@ -28,14 +25,28 @@ const input: CSSObject = {
   },
 };
 
-// TODO Handle `<enter>` press
+interface FormValues extends FormikValues {
+  activityName: string;
+}
+
+interface Props {
+  onAddActivity: (activityName: string) => void;
+}
+
 // TODO Add "save" icon
-// TODO Handle rest of the flow
 export const NewActivityButton: React.FC<Props> = (props: Props) => {
   const [showInput, setShowInput] = React.useState(false);
 
   function handleButtonClick(): void {
     setShowInput(!showInput);
+  }
+
+  function handleFormikSubmit(values: FormValues, { setSubmitting }: any): void {
+    setSubmitting(false);
+    // TODO Reset initial value
+    // TODO Prevent submitting an empty string
+    setShowInput(!showInput);
+    props.onAddActivity(values.activityName);
   }
 
   return (
@@ -47,11 +58,16 @@ export const NewActivityButton: React.FC<Props> = (props: Props) => {
       >
         Add New Activity
       </div>
-      <input
-        type={'text'}
-        css={[input, { display: showInput ? 'block' : 'none' }]}
-        placeholder={'Activity Name'}
-      />
+      <Formik initialValues={{activityName: ''}} onSubmit={handleFormikSubmit}>
+        <Form>
+          <Field
+            type={'text'}
+            css={[input, { display: showInput ? 'block' : 'none' }]}
+            name={'activityName'}
+            placeholder={'Activity Name'}
+          />
+        </Form>
+      </Formik>
     </div>
   );
 };
