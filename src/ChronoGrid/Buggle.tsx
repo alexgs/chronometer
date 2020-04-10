@@ -1,6 +1,7 @@
 import styled, { CSSObject } from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
+
 import { Activity } from 'types/activity';
 
 export const basicBox: CSSObject = {

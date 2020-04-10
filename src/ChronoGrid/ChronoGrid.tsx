@@ -1,5 +1,6 @@
 import styled from '@emotion/styled';
 import * as React from 'react';
+
 import { Activities, Activity } from 'types/activity';
 import * as HistoryTypes from 'types/history';
 

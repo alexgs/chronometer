@@ -1,7 +1,7 @@
 import { CSSObject } from '@emotion/core';
 import * as React from 'react';
 
-import { platinum, earthYellow } from '../colors'; // TODO Update config so `src/colors` is valid/correct
+import { platinum, earthYellow } from 'src/colors';
 
 interface Props {
   onAddActivity: (activityName: string) => void;
