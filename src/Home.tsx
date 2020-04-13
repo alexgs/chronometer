@@ -4,7 +4,7 @@ import React from 'react';
 import { gunmetal, platinum, pastelRed } from 'src/colors';
 
 import { ChronoGrid } from './ChronoGrid';
-import { InlineEditableText } from './InlineEditableText';
+import { InlineEditableText } from './Global/InlineEditableText';
 
 const Body = styled.div({
   backgroundColor: gunmetal,
