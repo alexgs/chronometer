@@ -4,6 +4,7 @@ import React from 'react';
 import { gunmetal, platinum, pastelRed } from 'src/colors';
 
 import { ChronoGrid } from './ChronoGrid';
+import { InlineEditableText } from './InlineEditableText';
 
 const Body = styled.div({
   backgroundColor: gunmetal,
@@ -26,12 +27,17 @@ const Header = styled.div({
 });
 
 export const Home: React.FunctionComponent = () => {
+  const [text, setText] = React.useState('this is editable text');
+
   return (
     <>
       <Header>Chronometer</Header>
       <Body>
         <Content>
           <ChronoGrid />
+        </Content>
+        <Content>
+          <InlineEditableText onSetText={setText} text={text} />
         </Content>
       </Body>
     </>
