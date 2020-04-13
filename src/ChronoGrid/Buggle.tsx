@@ -15,7 +15,6 @@ const Container = styled.div({
   cursor: 'pointer',
 });
 
-// TODO Move all colors and tints into a separate file
 const CheckedBox = styled.div({
   ...basicBox,
   display: 'none',

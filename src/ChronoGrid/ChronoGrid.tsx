@@ -111,7 +111,10 @@ export const ChronoGrid: React.FunctionComponent = () => {
       />
       {hoverCols}
       {hoverRows}
-      <NewActivityButton onAddActivity={handleAddActivity} />
+      <NewActivityButton
+        activityCount={activityCount}
+        onAddActivity={handleAddActivity}
+      />
     </Container>
   );
 };

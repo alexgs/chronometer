@@ -1,4 +1,5 @@
 import { CSSObject } from '@emotion/core';
+import DomPurify from 'dompurify';
 import * as React from 'react';
 import { useEffect, useRef, useState } from 'react';
 
@@ -82,7 +83,8 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
   function handleInputChange(
     event: React.SyntheticEvent<HTMLInputElement>,
   ): void {
-    setValue(event.currentTarget.value);
+    const newValue = DomPurify.sanitize(event.currentTarget.value);
+    setValue(newValue);
   }
 
   function handleTextClick(): void {
@@ -98,6 +100,9 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
         css={[baseCss, inputCss]}
         onChange={handleInputChange}
         ref={inputRef}
+        // TODO Take a look at this option for setting the width, from the original source
+        // Set the width to the input length multiplied by the x height it's not quite right but gets it close
+        // style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={value}
       />
     </span>
