@@ -1,3 +1,4 @@
+import { CSSObject } from '@emotion/core';
 import * as React from 'react';
 
 import { Activities, Activity } from 'types/activity';
@@ -13,6 +14,12 @@ import {
   SEGMENTS_PER_HOUR,
 } from './constants';
 import { printHour, printSegment, stringifyTimeCode } from './lib';
+
+const segmentLabelCss: CSSObject = {
+  fontSize: '0.875rem', // 14px
+  paddingLeft: 2,
+  paddingRight: 2,
+};
 
 function getCheckboxMaker(
   segmentData: History.Segment,
@@ -71,6 +78,7 @@ export const Hour: React.FunctionComponent<Props> = (props: Props) => {
         <React.Fragment key={`fragment_${timeCode}`}>
           <GridCell
             key={`segment_${timeCode}`}
+            customCss={segmentLabelCss}
             col={col}
             row={SEGMENT_LABEL_ROW}
           >

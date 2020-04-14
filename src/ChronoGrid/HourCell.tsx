@@ -19,6 +19,7 @@ export const HourCell: React.FunctionComponent<Props> = (props: Props) => {
     props.col * SEGMENTS_PER_HOUR + LABEL_COLS + LEFT_SCROLL_BUTTON_COLS + 1;
   const gridPlacement: CSSObject = {
     borderLeft: '1px solid lightgray',
+    borderTop: '1px solid lightgray',
     gridColumnStart: colStart,
     gridColumnEnd: colStart + SEGMENTS_PER_HOUR,
     textAlign: 'center',

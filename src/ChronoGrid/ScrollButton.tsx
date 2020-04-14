@@ -54,6 +54,7 @@ export const ScrollButton: React.FunctionComponent<Props> = (props: Props) => {
     gridRowEnd: props.activityCount + HEADER_ROWS + 1,
     gridRowStart: 1,
     justifyContent: 'center',
+    padding: 2,
     width: 'auto',
     zIndex: 2,
   };

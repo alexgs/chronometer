@@ -14,10 +14,14 @@ const buttonCss: CSSObject = {
 };
 
 const editableCss: CSSObject = {
+  '& > span': {
+    marginRight: '0.5rem',
+  },
   '& > input': {
     backgroundColor: gunmetal,
     borderBottom: `1px solid ${earthYellow}`,
     color: platinum,
+    marginRight: '0.5rem',
     ':focus': {
       outline: 'none',
     },

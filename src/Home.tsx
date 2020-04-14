@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import React from 'react';
 
-import { gunmetal, platinum, pastelRed } from 'src/colors';
+import { earthYellow, gunmetal, pastelRed, platinum } from 'src/colors';
 
 import { ChronoGrid } from './ChronoGrid';
 
@@ -19,10 +19,11 @@ const Content = styled.div({
 
 const Header = styled.div({
   backgroundColor: pastelRed,
+  borderBottom: `4px solid ${earthYellow}`,
   color: platinum,
   fontSize: '3rem',
   fontWeight: 800,
-  padding: '1rem 1rem 1rem 10vw',
+  padding: '0.5rem 1rem 0.5rem 10vw',
 });
 
 export const Home: React.FunctionComponent = () => {

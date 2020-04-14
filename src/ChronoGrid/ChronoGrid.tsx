@@ -20,6 +20,8 @@ import './ChronoGrid.css';
 // NOTE: If there's something funky with row/column highlighting in the grid,
 //   check that `./ChronoGrid.css` has been generated.
 
+export const ChronoGridContext = React.createContext({activityCount: 0});
+
 const Container = styled.div({
   display: 'grid',
   gridGap: 0,
@@ -116,32 +118,34 @@ export const ChronoGrid: React.FunctionComponent = () => {
   }
 
   return (
-    <Container>
-      {activityNames}
-      <ScrollButton
-        activityCount={activityCount}
-        direction={'left'}
-        onClick={handleScrollClick}
-      />
-      <History
-        activities={activities}
-        displayHours={DISPLAY_HOURS}
-        history={history}
-        onCheckboxClick={handleCheckboxClick}
-        startHour={startHour}
-      />
-      <ScrollButton
-        activityCount={activityCount}
-        direction={'right'}
-        onClick={handleScrollClick}
-      />
-      {hoverCols}
-      {hoverRows}
-      <NewActivityButton
-        activityCount={activityCount}
-        onAddActivity={handleAddActivity}
-      />
-    </Container>
+    <ChronoGridContext.Provider value={{activityCount}}>
+      <Container>
+        {activityNames}
+        <ScrollButton
+          activityCount={activityCount}
+          direction={'left'}
+          onClick={handleScrollClick}
+        />
+        <History
+          activities={activities}
+          displayHours={DISPLAY_HOURS}
+          history={history}
+          onCheckboxClick={handleCheckboxClick}
+          startHour={startHour}
+        />
+        <ScrollButton
+          activityCount={activityCount}
+          direction={'right'}
+          onClick={handleScrollClick}
+        />
+        {hoverCols}
+        {hoverRows}
+        <NewActivityButton
+          activityCount={activityCount}
+          onAddActivity={handleAddActivity}
+        />
+      </Container>
+    </ChronoGridContext.Provider>
   );
 };
 ChronoGrid.displayName = 'ChronoGrid';

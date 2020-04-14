@@ -77,10 +77,10 @@ export const Buggle: React.FunctionComponent<Props> = (props: Props) => {
         onChange={noOp}
       />
       <CheckedBox>
-        <FontAwesomeIcon icon={['fas', 'circle']} />
+        <FontAwesomeIcon icon={['fas', 'circle']} size={'sm'} />
       </CheckedBox>
       <EmptyBox>
-        <FontAwesomeIcon icon={['far', 'circle']} />
+        <FontAwesomeIcon icon={['far', 'circle']} size={'sm'} />
       </EmptyBox>
     </Container>
   );
