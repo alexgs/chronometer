@@ -1,6 +1,7 @@
 import styled, { CSSObject } from '@emotion/styled';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as React from 'react';
+
 import { Activity } from 'types/activity';
 
 export const basicBox: CSSObject = {
@@ -14,7 +15,6 @@ const Container = styled.div({
   cursor: 'pointer',
 });
 
-// TODO Move all colors and tints into a separate file
 const CheckedBox = styled.div({
   ...basicBox,
   display: 'none',

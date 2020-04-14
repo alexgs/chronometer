@@ -6,7 +6,7 @@ $HOUR_LABEL_ROW: 0;
 $LABEL_COLS: 1;
 $LEFT_SCROLL_BUTTON_COLS: 1;
 $MAX_HOURS: 8;
-$MAX_ROWS: 8;
+$MAX_ROWS: 64;
 $SEGMENTS_PER_HOUR: 4;
 
 $MAX_SEGMENTS: $MAX_HOURS * $SEGMENTS_PER_HOUR;
@@ -48,7 +48,7 @@ by running the command `npm run build:css`.
 }
 
 .hover-row {
-  grid-column: #{$LABEL_COLS + 1} / #{$MAX_COLUMNS + 1};
+  grid-column: 1 / #{$MAX_COLUMNS + 1};
   z-index: 0;
 }
 
