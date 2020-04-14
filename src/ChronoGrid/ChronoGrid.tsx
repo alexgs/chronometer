@@ -4,7 +4,7 @@ import * as React from 'react';
 import { Activities, Activity } from 'types/activity';
 import * as HistoryTypes from 'types/history';
 
-import { ActivityNames } from './ActivityNames';
+import { ActivityName } from './ActivityName';
 import { History } from './History';
 import { NewActivityButton } from './NewActivityButton';
 import { ScrollButton, ScrollDirection } from './ScrollButton';
@@ -81,6 +81,12 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
+  function handleEditActivity(activity: Activity): void {
+    const newState = { ...activities };
+    newState[activity.id] = activity;
+    setActivities(newState);
+  }
+
   function handleScrollClick(direction: ScrollDirection): void {
     if (direction === 'left') {
       setStartHour(Math.max(startHour - 1, 0));
@@ -90,6 +96,14 @@ export const ChronoGrid: React.FunctionComponent = () => {
   }
 
   const activityCount = Object.values(activities).length;
+
+  const activityNames = Object.values(activities).map((activity: Activity) => (
+    <ActivityName
+      key={activity.id}
+      activity={activity}
+      onEdit={handleEditActivity}
+    />
+  ));
 
   const hoverCols = [];
   for (let i = 0; i < SEGMENTS_PER_HOUR * DISPLAY_HOURS + LABEL_COLS; i++) {
@@ -103,7 +117,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
 
   return (
     <Container>
-      <ActivityNames activities={activities} />
+      {activityNames}
       <ScrollButton
         activityCount={activityCount}
         direction={'left'}

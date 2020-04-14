@@ -8,7 +8,6 @@ import { useKeyPress, useOnClickOutside } from 'src/hooks';
 const baseCss: CSSObject = {
   background: 'none',
   border: 'none',
-  borderBottom: '1px dashed #666',
   color: 'inherit',
   font: 'inherit',
   padding: 0,
@@ -17,13 +16,15 @@ const baseCss: CSSObject = {
 
 interface Props {
   className?: string;
+  isEditable: boolean;
+  onCancel: () => void;
   onSetText: (text: string) => void;
   text: string;
 }
 
-// A text element that can be clicked on and edited. Adapted from
-// https://joelmturner.com/blog/inline-text-edit-react-hooks
-export const InlineEditableText: React.FC<Props> = (props: Props) => {
+// A text element that can be edited inline, but editing state is controlled
+// externally. Adapted from `./InlineEditableText.tsx`
+export const EditableText: React.FC<Props> = (props: Props) => {
   const containerRef: React.MutableRefObject<HTMLSpanElement | null> = useRef(
     null,
   );
@@ -31,40 +32,38 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
     null,
   );
 
-  const [isEditable, setIsEditable] = useState(false);
   const [value, setValue] = useState(props.text);
 
   const enter = useKeyPress('Enter');
   const esc = useKeyPress('Escape');
 
   useOnClickOutside(containerRef, (): void => {
-    if (isEditable) {
+    if (props.isEditable) {
       save();
-      setIsEditable(false);
     }
   });
 
   // Focus on the input field when editing starts
   useEffect((): void => {
-    if (isEditable && inputRef && inputRef.current) {
+    if (props.isEditable && inputRef && inputRef.current) {
       inputRef.current.focus();
     }
-  }, [isEditable]);
+  }, [props.isEditable]);
 
   // Handle <Enter> and <Esc> key-presses when input is active
   useEffect((): void => {
-    if (isEditable) {
+    if (props.isEditable) {
       if (enter) {
         save();
       }
       if (esc) {
         setValue(props.text);
+        props.onCancel();
       }
-      setIsEditable(false);
     }
   }, [enter, esc]);
 
-  const inputCss: CSSObject = isEditable
+  const inputCss: CSSObject = props.isEditable
     ? {
         borderBottom: '1px solid #666',
         minWidth: Math.ceil(value.length) + 'ch',
@@ -75,13 +74,11 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
         display: 'none',
       };
 
-  const textCss: CSSObject = isEditable
+  const textCss: CSSObject = props.isEditable
     ? {
         display: 'none',
       }
-    : {
-        cursor: 'pointer',
-      };
+    : {};
 
   function handleInputChange(
     event: React.SyntheticEvent<HTMLInputElement>,
@@ -90,22 +87,18 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
     setValue(newValue);
   }
 
-  function handleTextClick(): void {
-    setIsEditable(true);
-  }
-
   function save(): void {
     if (value !== props.text) {
       props.onSetText(value);
-      setValue(props.text);
+      setValue(value);
+    } else {
+      props.onCancel();
     }
   }
 
   return (
     <span className={props.className} ref={containerRef}>
-      <span css={[baseCss, textCss]} onClick={handleTextClick}>
-        {props.text}
-      </span>
+      <span css={[baseCss, textCss]}>{props.text}</span>
       <input
         css={[baseCss, inputCss]}
         onChange={handleInputChange}
@@ -115,4 +108,4 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
     </span>
   );
 };
-InlineEditableText.displayName = 'InlineEditableText';
+EditableText.displayName = 'EditableText';
