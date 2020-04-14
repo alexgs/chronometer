@@ -23,7 +23,7 @@ const Container = styled.div({
 Container.displayName = 'ChronoGrid.Container';
 
 /* eslint-disable @typescript-eslint/camelcase */
-const activities: Activities = {
+const initialActivities: Activities = {
   activity_0: {
     id: 'activity_0',
     name: 'Working',
@@ -45,12 +45,19 @@ const activities: Activities = {
 const initialHistory: HistoryTypes.Day = getEmptyDay();
 
 export const ChronoGrid: React.FunctionComponent = () => {
+  const [activities, setActivities] = React.useState(initialActivities);
   const [history, setHistory] = React.useState(initialHistory);
   const [startHour, setStartHour] = React.useState(0);
 
   function handleAddActivity(activityName: string): void {
-    // TODO Handle adding row
-    console.log(`>> Added new activity "${activityName}" <<`);
+    const activityId = 'activity_' + activityCount;
+    const newState = {...activities};
+    newState[activityId] = {
+      id: activityId,
+      name: activityName,
+      position: activityCount,
+    }
+    setActivities(newState);
   }
 
   function handleCheckboxClick(

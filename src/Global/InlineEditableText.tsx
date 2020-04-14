@@ -38,7 +38,7 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
 
   useOnClickOutside(containerRef, (): void => {
     if (isEditable) {
-      props.onSetText(value);
+      save();
       setIsEditable(false);
     }
   });
@@ -54,7 +54,7 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
   useEffect((): void => {
     if (isEditable) {
       if (enter) {
-        props.onSetText(value);
+        save();
       }
       if (esc) {
         setValue(props.text);
@@ -66,7 +66,9 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
   const inputCss: CSSObject = isEditable
     ? {
         borderBottom: '1px solid #666',
+        minWidth: Math.ceil(value.length) + 'ch',
         textAlign: 'left',
+        width: '100%',
       }
     : {
         display: 'none',
@@ -91,6 +93,13 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
     setIsEditable(true);
   }
 
+  function save(): void {
+    if (value !== props.text) {
+      props.onSetText(value);
+      setValue(props.text);
+    }
+  }
+
   return (
     <span className={props.className} ref={containerRef}>
       <span css={[baseCss, textCss]} onClick={handleTextClick}>
@@ -100,9 +109,6 @@ export const InlineEditableText: React.FC<Props> = (props: Props) => {
         css={[baseCss, inputCss]}
         onChange={handleInputChange}
         ref={inputRef}
-        // TODO Take a look at this option for setting the width, from the original source
-        // Set the width to the input length multiplied by the x height it's not quite right but gets it close
-        // style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={value}
       />
     </span>

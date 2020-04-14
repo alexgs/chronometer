@@ -8,12 +8,12 @@ import { HEADER_ROWS } from './constants';
 
 const buttonCell: CSSObject = {
   gridColumn: 1,
-  minWidth: '10rem',
-  padding: '2px 0',
+  minWidth: '9rem',
+  padding: '2px 1rem 2px 0',
 };
 
 const inactiveColor = tints.gunmetal[40];
-const customCss: CSSObject = {
+const inlineEditableCss: CSSObject = {
   '& > span': {
     borderBottom: `1px dashed ${inactiveColor}`,
     color: inactiveColor,
@@ -42,7 +42,7 @@ export const NewActivityButton: React.FC<Props> = (props: Props) => {
   return (
     <div className={rowClass} css={buttonCell}>
       <InlineEditableText
-        css={customCss}
+        css={inlineEditableCss}
         onSetText={handleSetText}
         text={'Add New Activity'}
       />
