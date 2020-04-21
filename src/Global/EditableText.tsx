@@ -1,7 +1,9 @@
 import { CSSObject } from '@emotion/core';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DomPurify from 'dompurify';
 import * as React from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import { useKeyPress, useOnClickOutside } from 'src/hooks';
 
@@ -14,10 +16,16 @@ const baseCss: CSSObject = {
   textAlign: 'inherit',
 };
 
+const buttonCss: CSSObject = {
+  cursor: 'pointer',
+};
+
 interface Props {
   className?: string;
+  icon: IconProp;
   isEditable: boolean;
   onCancel: () => void;
+  onIconClick: () => void;
   onSetText: (text: string) => void;
   text: string;
 }
@@ -25,12 +33,8 @@ interface Props {
 // A text element that can be edited inline, but editing state is controlled
 // externally. Adapted from `./InlineEditableText.tsx`
 export const EditableText: React.FC<Props> = (props: Props) => {
-  const containerRef: React.MutableRefObject<HTMLSpanElement | null> = useRef(
-    null,
-  );
-  const inputRef: React.MutableRefObject<HTMLInputElement | null> = useRef(
-    null,
-  );
+  const containerRef: MutableRefObject<HTMLSpanElement | null> = useRef(null);
+  const inputRef: MutableRefObject<HTMLInputElement | null> = useRef(null);
 
   const [value, setValue] = useState(props.text);
 
@@ -104,6 +108,12 @@ export const EditableText: React.FC<Props> = (props: Props) => {
         onChange={handleInputChange}
         ref={inputRef}
         value={value}
+      />
+      <FontAwesomeIcon
+        css={buttonCss}
+        icon={props.icon}
+        onClick={props.onIconClick}
+        role={'button'}
       />
     </span>
   );

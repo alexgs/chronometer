@@ -27,9 +27,9 @@ export const GridCell: React.FunctionComponent<Props> = (props: Props) => {
     return props.row === SEGMENT_LABEL_ROW;
   }
 
-  const borderLeft = (props.col - 1) % SEGMENTS_PER_HOUR === 0 ? '1px solid lightgray' : 'none';
-  const borderBottom =
-     showBottomBorder() ? '1px solid lightgray' : 'none';
+  const borderLeft =
+    (props.col - 1) % SEGMENTS_PER_HOUR === 0 ? '1px solid lightgray' : 'none';
+  const borderBottom = showBottomBorder() ? '1px solid lightgray' : 'none';
   const borders = {
     borderBottom,
     borderLeft,
@@ -37,7 +37,10 @@ export const GridCell: React.FunctionComponent<Props> = (props: Props) => {
 
   const gridCellCss = css(baseCellStyle, borders, props.customCss);
   return (
-    <div css={gridCellCss} className={`gridcell col-${props.col} row-${props.row}`}>
+    <div
+      css={gridCellCss}
+      className={`gridcell col-${props.col} row-${props.row}`}
+    >
       {props.children}
     </div>
   );

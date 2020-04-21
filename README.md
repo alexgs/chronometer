@@ -19,11 +19,13 @@ A simple time-tracking app, modeled after BubbleTimer.
 
 - [ ] Scrolling improvements: Animation
   - [React Motion][3] is an option
+  - [React Spring][4] is another
 - [ ] Scrolling improvements: Button to move +/- 6 hours
 - [ ] Shift-click to select multiple segments in one row
 - [ ] Ctrl-click to select multiple activities for the same segment
 
 [3]: https://github.com/chenglou/react-motion
+[4]: https://www.react-spring.io/
 
 ## Dev Setup
 

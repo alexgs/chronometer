@@ -10,6 +10,7 @@ import {
 import {
   faCircle as farCircle,
   faPen as farPen,
+  faTrash as farTrash,
 } from '@fortawesome/pro-regular-svg-icons';
 import { faCircle as fasCircle } from '@fortawesome/pro-solid-svg-icons';
 import React from 'react';
@@ -24,6 +25,7 @@ library.add(
   falSave,
   farCircle,
   farPen,
+  farTrash,
   fasCircle,
 );
 

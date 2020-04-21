@@ -20,7 +20,7 @@ import './ChronoGrid.css';
 // NOTE: If there's something funky with row/column highlighting in the grid,
 //   check that `./ChronoGrid.css` has been generated.
 
-export const ChronoGridContext = React.createContext({activityCount: 0});
+export const ChronoGridContext = React.createContext({ activityCount: 0 });
 
 const Container = styled.div({
   display: 'grid',
@@ -83,6 +83,9 @@ export const ChronoGrid: React.FunctionComponent = () => {
     setHistory(newState);
   }
 
+  function handleDeleteActivity(target: Activity): void {
+  }
+
   function handleEditActivity(activity: Activity): void {
     const newState = { ...activities };
     newState[activity.id] = activity;
@@ -103,6 +106,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
     <ActivityName
       key={activity.id}
       activity={activity}
+      onDelete={handleDeleteActivity}
       onEdit={handleEditActivity}
     />
   ));
@@ -118,7 +122,7 @@ export const ChronoGrid: React.FunctionComponent = () => {
   }
 
   return (
-    <ChronoGridContext.Provider value={{activityCount}}>
+    <ChronoGridContext.Provider value={{ activityCount }}>
       <Container>
         {activityNames}
         <ScrollButton
