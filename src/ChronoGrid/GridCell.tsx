@@ -1,8 +1,8 @@
 import { CSSObject, css } from '@emotion/core';
 import * as React from 'react';
 
-import { HEADER_ROWS, SEGMENT_LABEL_ROW, SEGMENTS_PER_HOUR } from './constants';
 import { ChronoGridContext } from './ChronoGrid';
+import { HEADER_ROWS, SEGMENT_LABEL_ROW, SEGMENTS_PER_HOUR } from './constants';
 
 export const baseCellStyle: CSSObject = {
   padding: '2px 0',

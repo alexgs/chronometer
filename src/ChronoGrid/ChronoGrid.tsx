@@ -1,4 +1,5 @@
 import styled from '@emotion/styled';
+import _ from 'lodash';
 import * as React from 'react';
 
 import { Activities, Activity } from 'types/activity';
@@ -54,10 +55,15 @@ const initialHistory: HistoryTypes.Day = getEmptyDay();
 export const ChronoGrid: React.FunctionComponent = () => {
   const [activities, setActivities] = React.useState(initialActivities);
   const [history, setHistory] = React.useState(initialHistory);
+  const [nextIndex, setNextIndex] = React.useState(
+    Object.keys(initialActivities).length,
+  );
   const [startHour, setStartHour] = React.useState(0);
 
   function handleAddActivity(activityName: string): void {
-    const activityId = 'activity_' + activityCount;
+    const activityId = 'activity_' + nextIndex;
+    setNextIndex(nextIndex + 1);
+
     const newState = { ...activities };
     newState[activityId] = {
       id: activityId,
@@ -84,6 +90,14 @@ export const ChronoGrid: React.FunctionComponent = () => {
   }
 
   function handleDeleteActivity(target: Activity): void {
+    const newState = _.mapValues(activities, (activity: Activity) => {
+      if (activity.position > target.position) {
+        activity.position = activity.position - 1;
+      }
+      return activity;
+    });
+    delete newState[target.id];
+    setActivities(newState);
   }
 
   function handleEditActivity(activity: Activity): void {
