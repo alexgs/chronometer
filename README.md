@@ -8,20 +8,21 @@ A simple time-tracking app, modeled after BubbleTimer.
 - [x] Better padding for activity-name cells
 - [x] Custom scrolling for the grid
 - [x] Pretty checkboxes
+- [x] Add/remove/edit activities
+- [ ] Support multiple/infinite days
 - [ ] Reorder activities
-- [ ] Add/remove/edit activities
 - [ ] Exceptions for DST, TZ changes, whatnot
 - [ ] Login and authentication
-- [ ] Dynamically change the number of hours displayed based on the screen width
 - [ ] Backend
 
 **Future Work**
 
+- [ ] Shift-click to select multiple segments in one row
 - [ ] Scrolling improvements: Animation
   - [React Motion][3] is an option
   - [React Spring][4] is another
 - [ ] Scrolling improvements: Button to move +/- 6 hours
-- [ ] Shift-click to select multiple segments in one row
+- [ ] Dynamically change the number of hours displayed based on the screen width
 - [ ] Ctrl-click to select multiple activities for the same segment
 
 [3]: https://github.com/chenglou/react-motion
